@@ -1,0 +1,71 @@
+<div class="container-login">
+  <div class="container-login-central">
+    <div class="container-header">
+      <div class="titulo-login">Gambiarra</div>
+      <div class="info-login">Preencha os campos para acesso!</div>
+    </div>
+
+    <div
+      class="container-form">
+      <form class="form-inputs"
+      [formGroup]="CadastroForm"
+      (submit)="cadastrarUser()">
+        <div class="group-input">
+
+          <div class="text-info">Nome</div>
+          <input class="input-form" type="text" name="nome" id="nome" placeholder="Nome" formControlName="nome" required="" />
+          <label
+            *ngIf=" CadastroForm.get('nome')?.errors?.['required'] &&  CadastroForm.get('nome')?.touched" class="error-input">
+            Campo Obrigatório!
+          </label>
+          <br />
+
+        </div>
+
+        <div class="group-input">
+
+          <div class="text-info">E-Mail</div>
+          <input class="input-form" type="text" name="email" id="email" placeholder="E-Mail" formControlName="email" required="" />
+          <label
+            *ngIf=" CadastroForm.get('email')?.errors?.['required'] &&  CadastroForm.get('email')?.touched" class="error-input">
+            Campo Obrigatório!
+          </label>
+          <br />
+
+        </div>
+
+        <div class="group-input">
+
+          <div class="text-info">Senha</div>
+          <input class="input-form" type="password" name="senha" id="senha" placeholder="A senha deve ter no máximo 6 caracteres!" formControlName="senha" required=""          />
+          <label
+            *ngIf=" CadastroForm.get('senha')?.errors?.['required'] &&  CadastroForm.get('senha')?.touched" class="error-input">
+            Campo Obrigatório!
+          </label>
+          <br />
+
+        </div>
+
+        <div class="group-input">
+
+          <div class="text-info">Telefone</div>
+          <input class="input-form" type="text" name="telefone" id="telefone" placeholder="Telefone" formControlName="telefone" required="" (input)="formatarTelefone($event)" />
+          <label
+            *ngIf=" CadastroForm.get('telefone')?.errors?.['required'] &&  CadastroForm.get('telefone')?.touched" class="error-input">
+            Campo Obrigatório!
+          </label>
+          <br />
+
+        </div>
+
+        <div class="group-input">
+          <input type="submit" class="btn-login" value="Cadastrar" [ngClass]="{ disabled: !CadastroForm.valid }"[disabled]="!CadastroForm.valid" />
+        </div>
+
+      </form>
+    </div>
+    <div class="text-voltar">
+      <a [routerLink]="['/login']" class="text-voltar">Voltar</a>
+    </div>
+  </div>
+</div>

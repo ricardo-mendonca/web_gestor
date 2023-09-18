@@ -1,0 +1,51 @@
+<div class="container-login">
+  <div class="container-login-central">
+    <div class="container-header">
+      <div class="titulo-login">Gambiarra</div>
+      <div class="info-login">Digite seu e-mail para recuperar a senha</div>
+    </div>
+
+    <div class="container-form">
+      <form
+        class="form-inputs"
+        [formGroup]="recuperarsenhaForm"
+        (submit)="forgotUser()"
+      >
+        <div class="group-input">
+          <div class="text-info">E-mail</div>
+          <input
+            class="input-form"
+            type="text"
+            name="email"
+            id="email"
+            placeholder="E-Mail"
+            formControlName="email"
+            required=""
+          />
+
+          <label
+            *ngIf=" recuperarsenhaForm.get('email')?.errors?.['required'] &&  recuperarsenhaForm.get('email')?.touched"
+            class="error-input"
+          >
+            Campo Obrigatório!
+          </label>
+          <br />
+        </div>
+
+        <div class="group-input">
+          <input
+            type="submit"
+            class="btn-login"
+            value="Enviar E-mail"
+            [ngClass]="{ disabled: !recuperarsenhaForm.valid }"
+            [disabled]="!recuperarsenhaForm.valid"
+          />
+        </div>
+      </form>
+    </div>
+
+    <div class="text-voltar">
+      <a [routerLink]="['/login']" class="text-voltar">Voltar</a>
+    </div>
+  </div>
+</div>
