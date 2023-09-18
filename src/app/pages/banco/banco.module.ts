@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { BancoComponent } from './banco.component';
-
-import { NavbarModule } from 'src/app/components/navbar/navbar.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BancoRoutingModule } from './banco-routing.module';
-//import { SidebarModule } from 'src/app/components/sidebar/sidebar.module';
-
-
+import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 
 @NgModule(
     {
         providers:[],
         declarations:[ BancoComponent ],
         imports:[
-            CommonModule,
-            BancoRoutingModule,
-            NavbarModule,
-           // SidebarModule
+          CommonModule,
+          BancoRoutingModule,
+          NavbarModule,
+          ReactiveFormsModule
         ]
     }
 )

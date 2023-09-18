@@ -8,7 +8,6 @@ const routes: Routes = [
     path: '',
     component: DespesaComponent,
   },
-  //{ path:'categoria', component: CategoriaComponent },
 ];
 
 @NgModule({
