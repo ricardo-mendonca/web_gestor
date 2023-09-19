@@ -9,18 +9,19 @@ import { BancoModel } from '../models/BancoModel';
 export class BancoService {
   constructor(private httpClient: HttpClient) {}
 
-  private readonly baseURL = environment['endPoint'];
+  private readonly baseURL = environment['endpoint'];
 
   CreateBanco(banco: BancoModel) {
-    return this.httpClient.post<BancoModel>(
-      `${this.baseURL}/CreateBanco`,
-      banco
-    );
+    return this.httpClient.post<BancoModel>(`${this.baseURL}/CreateBanco`,banco);
   }
 
   //GetBancoId
   GetBancoId(Id: number) {
     return this.httpClient.get(`${this.baseURL}/GetBancoId?Id=${Id}`);
+  }
+
+  GetBancos(){
+    return this.httpClient.get(`${this.baseURL}/GetBancos`);
   }
 
   //GetBancos

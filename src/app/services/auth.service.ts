@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
@@ -60,6 +59,21 @@ export class AuthService {
         localStorage.clear();
         sessionStorage.clear();
     }
+
+    setEmailUser(email: string) {
+      localStorage.setItem('emailUser', email);
+  }
+
+  get getEmailUser() {
+      var emailUserLogado = localStorage.getItem('emailUser');
+      if (emailUserLogado) {
+          return emailUserLogado;
+      }
+      else {
+          this.limparDadosUsuario();
+          return "";
+      }
+  }
 
 
 
