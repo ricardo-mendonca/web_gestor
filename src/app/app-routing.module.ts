@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RecuperarsenhaComponent } from './pages/auth/recuperarsenha/recuperarsenha.component';
 import { CadastroComponent } from './pages/auth/cadastro/cadastro.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AuthGuard } from './pages/guards/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -26,22 +27,22 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
-    //canActivate:[AuthGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'banco',
     loadChildren: () => import('./pages/banco/banco.module').then(m => m.BancoModule),
-    //canActivate:[AuthGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'categoria',
     loadChildren: () => import('./pages/categoria/categoria.module').then(m => m.CategoriaModule),
-    //canActivate:[AuthGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'despesa',
     loadChildren: () => import('./pages/despesa/despesa.module').then(m => m.DespesaModule),
-    //canActivate:[AuthGuard]
+    canActivate:[AuthGuard]
   },
 ];
 
