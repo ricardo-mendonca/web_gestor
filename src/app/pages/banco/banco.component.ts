@@ -98,7 +98,6 @@ export class BancoComponent {
   enviar() {
     //debugger;
     var dados = this.dadorForm();
-    console.log(dados);
 
     let item = new BancoModel();
     item.descricao = dados['descricao'].value;
@@ -109,6 +108,8 @@ export class BancoComponent {
     this.bancoService.CreateBanco(item).subscribe(
       (response: BancoModel) => {
         this.sistemaForm.reset();
+
+
       },
       (error) => console.error(error),
       () => {}
