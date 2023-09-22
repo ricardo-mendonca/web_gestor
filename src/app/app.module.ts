@@ -1,24 +1,27 @@
-import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/auth/login/login.component';
-import { RecuperarsenhaComponent } from './pages/auth/recuperarsenha/recuperarsenha.component';
-import { CadastroComponent } from './pages/auth/cadastro/cadastro.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
-import { MatIconModule } from '@angular/material/icon';
-
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-
-import { HTTPStatus, LoaderInterceptor } from './interceptor/loader.interceptor';
+import { AppComponent } from './app.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { AuthGuard } from './pages/guards/auth-guard.service';
+import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CadastroComponent } from './pages/auth/cadastro/cadastro.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTPStatus, LoaderInterceptor } from './interceptor/loader.interceptor';
+import { RecuperarsenhaComponent } from './pages/auth/recuperarsenha/recuperarsenha.component';
+
+
+import { ToastrModule } from 'ngx-toastr';
+
+
+
+
+
 
 const RxJS = [LoaderInterceptor, HTTPStatus];
 
@@ -46,6 +49,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatIconModule,
 
     NgxSpinnerModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     AuthGuard,

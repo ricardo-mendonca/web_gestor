@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { CategoriaModel } from 'src/app/models/CategoriaModel';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { MenuService } from 'src/app/services/menu.service';
@@ -14,6 +16,7 @@ export class CategoriaComponent {
     public menuService: MenuService,
     public formBuilder: FormBuilder,
     public categoriaService: CategoriaService,
+    private toastr: ToastrService
   ) {}
   categoriaForm: FormGroup;
 
@@ -22,7 +25,9 @@ export class CategoriaComponent {
       name: ['', [Validators.required]],
     });
   }
-
+  ShowSucess() {
+    this.toastr.success('Salvo com sucesso!');
+  }
   dadorForm() {
     return this.categoriaForm.controls;
   }
@@ -40,6 +45,7 @@ export class CategoriaComponent {
 
     this.categoriaService.CreateCategoria(item).subscribe(
       (response:CategoriaModel) => {
+        this.ShowSucess();
         this.categoriaForm.reset();
       },
       (error) => console.error(error),
