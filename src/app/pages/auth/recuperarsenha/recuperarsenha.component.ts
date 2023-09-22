@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-
+import { ToastrService } from 'ngx-toastr';
+import { RecuperarSenhaService } from 'src/app/services/recuperarSenha.service';
 
 @Component({
   selector: 'app-recuperarsenha',
@@ -14,7 +14,8 @@ export class RecuperarsenhaComponent {
   constructor(
     public formBuilder: FormBuilder,
     private router: Router,
-
+    private recuperarSenhaService: RecuperarSenhaService,
+    private toastr: ToastrService
   ) {}
 
   recuperarsenhaForm: FormGroup;
@@ -29,10 +30,32 @@ export class RecuperarsenhaComponent {
 
   get dadosForm() {
     return this.recuperarsenhaForm;
+  }
 
+  ShowSucess(msg) {
+    this.toastr.success(msg);
+  }
+  ShowErro(msg){
+    this.toastr.error(msg);
   }
 
   forgotUser() {
+    //console.log(this.dadosForm.value['email']);
+    this.recuperarSenhaService
+    .ResetPassword(this.dadosForm.value['email'] )
+    .subscribe(
+      (ret) => {
 
+        var resposta = ret;
+        resposta = resposta["message"];
+        this.ShowSucess(resposta);
+
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        var resposta = error;
+        this.ShowErro(resposta.error.message);
+      }
+    );
   }
 }

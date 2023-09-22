@@ -7,14 +7,14 @@ import { environment } from "src/environment";
   providedIn: 'root'
 })
 
-export class ForgotPasswordService{
+export class RecuperarSenhaService{
   constructor(private httpClient: HttpClient) {
   }
 
   private readonly baseUrl = environment["endpoint"];
 
   ResetPassword(email: string){
-    console.log("createBanco");
+    console.log("ResetPassword");
     console.log(this.baseUrl);
 
       return this.httpClient.post(`${this.baseUrl}/ResetPassword`, { email: email });
