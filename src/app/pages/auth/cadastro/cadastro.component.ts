@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-//import { registerService } from 'src/app/services/register.service';
+import { ToastrService } from 'ngx-toastr';
+import { registerService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -13,7 +14,8 @@ export class CadastroComponent {
   constructor(
     public formBuilder: FormBuilder,
     private router: Router,
-    //private registerService: registerService
+    private registerService: registerService,
+    private toastr: ToastrService
     ) {}
 
   CadastroForm: FormGroup;
@@ -31,9 +33,31 @@ export class CadastroComponent {
     return this.CadastroForm.controls;
   }
 
+  ShowSucess(msg) {
+    this.toastr.success(msg);
+  }
+  ShowErro(msg){
+    this.toastr.error(msg);
+  }
 
   cadastrarUser(){
+    this.registerService
+    .CreateUsuario(this.dadosForm['nome'].value, this.dadosForm['email'].value, this.dadosForm['senha'].value , this.dadosForm['telefone'].value)
+    .subscribe(
+      (ret) => {
+        var resposta = ret;
+        resposta = resposta["message"];
+        this.ShowSucess("Cadastro realizado com sucesso!");
 
+        this.router.navigate(['/login']);
+      },
+      (err) => {
+        var resposta = err.error;
+        resposta = resposta["message"];
+
+        this.ShowErro(resposta);
+      }
+    );
   }
 
 
