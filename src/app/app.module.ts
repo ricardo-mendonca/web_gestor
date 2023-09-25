@@ -1,13 +1,12 @@
+import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthGuard } from './pages/guards/auth-guard.service';
-import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HTTPStatus, LoaderInterceptor } from './interceptor/loader.interceptor';
 
@@ -18,6 +17,11 @@ import { RecuperarsenhaComponent } from './pages/auth/recuperarsenha/recuperarse
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+
+
 const RxJS = [LoaderInterceptor, HTTPStatus];
 
 @NgModule({
@@ -26,33 +30,28 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     LoginComponent,
     RecuperarsenhaComponent,
     CadastroComponent,
-
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
     CommonModule,
     HttpClientModule,
-
     FormsModule,
     ReactiveFormsModule,
-
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatIconModule,
-
     NgxSpinnerModule,
     ToastrModule.forRoot(),
+    MatCardModule,
   ],
   providers: [
     AuthGuard,
     RxJS,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 
 })

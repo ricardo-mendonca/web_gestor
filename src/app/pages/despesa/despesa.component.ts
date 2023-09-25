@@ -3,10 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectModel } from 'src/app/models/SelectModel';
 import { MenuService } from 'src/app/services/menu.service';
 
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 @Component({
   selector: 'app-despesa',
   templateUrl: './despesa.component.html',
-  styleUrls: ['./despesa.component.scss']
+  styleUrls: ['./despesa.component.scss'],
 })
 export class DespesaComponent {
   constructor(

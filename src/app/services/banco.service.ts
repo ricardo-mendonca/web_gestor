@@ -15,7 +15,7 @@ export class BancoService {
     return this.httpClient.post<BancoModel>(`${this.baseURL}/CreateBanco`,banco);
   }
 
-  //GetBancoId
+
   GetBancoId(Id: number) {
     return this.httpClient.get(`${this.baseURL}/GetBancoId?Id=${Id}`);
   }
@@ -24,7 +24,7 @@ export class BancoService {
     return this.httpClient.get(`${this.baseURL}/GetBancos`);
   }
 
-  //GetBancos
+
   //UpdateBanco
   //DeleteBanco
 }
