@@ -68,8 +68,15 @@
 
       <div class="row">
         <div class="group-row">
-          <label>Sistemas</label>
+            <label>Banco</label>
+           <ng-select
+            class="select-padrao" id="selectBanco" [(ngModel)]="sistemaSelect" [items]="listaDeBancos"  bindLabel="name"  [multiple]="false" [clearable]="false" [searchable]="false" formControlName="sistemaSelect" >
+          </ng-select>
+          <label class="error-input" *ngIf="despesaForm.get('selectBanco')?.errors?.['required'] && despesaForm.get('selectBanco')?.touched">
+            Campo Obrigatório!
+          </label>
         </div>
+
 
         <div class="group-row">
           <label>Categoria</label>
