@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DespesaComponent } from './despesa.component';
-//import { CategoriaComponent } from '../categoria/categoria.component';
+import {MatCardModule} from '@angular/material/card';
 
 const routes: Routes = [
   {
@@ -11,7 +11,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  imports: [
+    RouterModule.forChild(routes),
+    MatCardModule,
+  ],
 })
 export class DespesaRoutingModule {}

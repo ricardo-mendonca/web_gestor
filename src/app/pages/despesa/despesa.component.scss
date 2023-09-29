@@ -1,0 +1,23 @@
+.group-row {
+  padding-right: 10px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.ng-select .ng-select-container {
+  color: #333;
+  cursor: default;
+  display: flex;
+  outline: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}

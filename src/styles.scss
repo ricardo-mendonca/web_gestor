@@ -102,25 +102,31 @@ label {
 /* #endregion */
 
 /* #region SELECT PADRÃO */
-.select-padrao {
-  background: #fefefe;
+
+
+
+ .select-padrao {
+  background: #ffffff;
   box-sizing: border-box;
+  width: 385px;
+  height: 42px;
+  border: 1px solid #ccd4db;
+  position: relative;
+
   border-radius: 3px;
-  font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 15px;
+  font-family: "Poppins";
   line-height: 160%;
   color: #1e1e1e;
-  width: 397px;
-  height: 44px;
 }
 
-::ng-deep .ng-select.ng-select-single .ng-select-container {
+ .ng-select.ng-select-single .ng-select-container {
   height: 36px !important;
 }
 
-::ng-deep .ng-select .ng-select-container {
+.ng-select .ng-select-container {
   color: #333;
   background-color: #fff;
   border-radius: 4px;
@@ -128,6 +134,33 @@ label {
   min-height: 42px;
   align-items: center;
 }
+ .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+  position: relative;
+  left: 0;
+  width: 100%;
+}
+
+
+.ng-dropdown-panel .ng-dropdown-panel-items {
+  display: block;
+  height: auto;
+  box-sizing: border-box;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.ng-dropdown-panel .scroll-host {
+  background: #f0f0f0;
+  border: 1px solid #ccd4db;
+  border-radius: 3px;
+
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  display: block;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* #endregion*/
 
 
@@ -251,6 +284,6 @@ table {
   cursor: default !important;
   border-radius: 5px !important;
 }
-/* #endregio */
+/* #endregion */
 
 

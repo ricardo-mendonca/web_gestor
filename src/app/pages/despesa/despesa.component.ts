@@ -3,20 +3,25 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectModel } from 'src/app/models/SelectModel';
 import { MenuService } from 'src/app/services/menu.service';
 
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { BancoService } from 'src/app/services/banco.service';
+import { BancoModel } from 'src/app/models/BancoModel';
+
 @Component({
   selector: 'app-despesa',
   templateUrl: './despesa.component.html',
-  styleUrls: ['./despesa.component.scss']
+  styleUrls: ['./despesa.component.scss'],
 })
 export class DespesaComponent {
   constructor(
     public menuService: MenuService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public bancoService: BancoService,
   ) {}
 
-  listSistemas = new Array<SelectModel>();
+  listaDeBancos = new Array<SelectModel>();
   sistemaSelect = new SelectModel();
-
   listCategorias = new Array<SelectModel>();
   categoriaSelect = new SelectModel();
   despesaFixa = new SelectModel();
@@ -29,7 +34,6 @@ export class DespesaComponent {
       name: ['', [Validators.required]],
       valor: ['', [Validators.required]],
       data: ['', [Validators.required]],
-
       categoriaSelect: ['', [Validators.required]],
       despesaFixa: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
@@ -41,6 +45,8 @@ export class DespesaComponent {
       dataPagamento: ['', [Validators.required]],
       qtdParcela: ['', [Validators.required]],
     });
+
+    this.ListaBancoUsuario();
   }
 
   dadorForm() {
@@ -61,4 +67,25 @@ export class DespesaComponent {
     v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
     event.target.value = 'R$ ' + v;
   }
+
+  ListaBancoUsuario(){
+    this.bancoService.GetBancos()
+    .subscribe((response : Array<BancoModel>) => {
+
+      var listBancoUsuario = [];
+
+      response.forEach(x => {
+        var item = new SelectModel();
+        item.id = x.id.toString();
+        item.name = x.descricao
+
+        listBancoUsuario.push(item);
+
+      });
+
+      this.listaDeBancos = listBancoUsuario;
+    })
+
+  }
+
 }
