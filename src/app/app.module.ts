@@ -19,7 +19,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-
 const RxJS = [LoaderInterceptor, HTTPStatus];
 
 @NgModule({
@@ -28,6 +27,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     LoginComponent,
     RecuperarsenhaComponent,
     CadastroComponent,
+
   ],
   imports: [
     BrowserModule,

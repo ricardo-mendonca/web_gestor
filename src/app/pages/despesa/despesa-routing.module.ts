@@ -12,9 +12,12 @@ const routes: Routes = [
 
 @NgModule({
   exports: [RouterModule],
+  declarations:[],
   imports: [
     RouterModule.forChild(routes),
     MatCardModule,
+
   ],
+
 })
 export class DespesaRoutingModule {}

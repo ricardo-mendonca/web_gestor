@@ -21,4 +21,9 @@ export class CategoriaService{
     return this.httpClient.post<CategoriaModel>(`${this.baseURL}/CreateCategoria`, categoria);
   }
 
+  GetCategorias(){
+    return this.httpClient.get(`${this.baseURL}/GetCategoria`);
+  }
+
+
 }
