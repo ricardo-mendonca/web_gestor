@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectModel } from 'src/app/models/SelectModel';
 import { MenuService } from 'src/app/services/menu.service';
 
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { BancoService } from 'src/app/services/banco.service';
 import { BancoModel } from 'src/app/models/BancoModel';
 import { CategoriaService } from 'src/app/services/categoria.service';
@@ -56,7 +54,7 @@ export class DespesaComponent {
       valorDesconto: ['', [Validators.required]],
       pago: ['', [Validators.required]],
       dataVencimento: ['', [Validators.required]],
-      dataPagamento: ['', [Validators.required]],
+      dataPagamento: ['', ],
       qtdParcela: ['', [Validators.required]],
     });
 

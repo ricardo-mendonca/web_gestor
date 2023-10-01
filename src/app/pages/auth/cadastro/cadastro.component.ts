@@ -45,8 +45,7 @@ export class CadastroComponent {
     .CreateUsuario(this.dadosForm['nome'].value, this.dadosForm['email'].value, this.dadosForm['senha'].value , this.dadosForm['telefone'].value)
     .subscribe(
       (ret) => {
-        var resposta = ret;
-        resposta = resposta["message"];
+        //var resposta = ret;
         this.ShowSucess("Cadastro realizado com sucesso!");
 
         this.router.navigate(['/login']);
