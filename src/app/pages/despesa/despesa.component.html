@@ -45,14 +45,14 @@
         </div>
 
         <div class="group-row">
-          <label>dataPagamento</label>
+          <label>Data de Pagamento</label>
           <input
             type="date"
             name="dataPagamento"
             id="dataPagamento"
             placeholder="dataPagamento"
             formControlName="dataPagamento"
-            required
+
           />
           <label
             class="error-input"
@@ -71,6 +71,7 @@
             name="valorParcela"
             id="valorParcela"
             formControlName="valorParcela"
+            placeholder="R$ "
             mask="separator.2"
             thousandSeparator="."
             prefix="R$ "
@@ -85,12 +86,13 @@
         </div>
 
         <div class="group-row">
-          <label>valorMulta</label>
+          <label>Valor da Multa</label>
           <input
             type="text"
             name="valorMulta"
             id="valorMulta"
             formControlName="valorMulta"
+            placeholder="R$ "
             mask="separator.2"
             thousandSeparator="."
             prefix="R$ "
@@ -105,12 +107,13 @@
         </div>
 
         <div class="group-row">
-          <label>valorDesconto</label>
+          <label>Valor do Desconto</label>
           <input
             type="text"
             name="valorDesconto"
             id="valorDesconto"
             formControlName="valorDesconto"
+            placeholder="R$ "
             mask="separator.2"
             thousandSeparator="."
             prefix="R$ "
@@ -173,12 +176,11 @@
 
       <div class="row">
         <div class="group-row">
-          <label>Qtd parcelas</label>
+          <label>Número de Parcelas</label>
           <input
             type="number"
             name="qtdParcela"
             id="qtdParcela"
-            placeholder="qtdParcela"
             formControlName="qtdParcela"
             required
           />
@@ -193,7 +195,7 @@
 
       <div class="row">
         <div class="group-row">
-          <label>Despesa Fixa</label>
+          <label>  </label>
           <mat-slide-toggle
             class="group-slide"
             [color]="colorFixo"
@@ -206,7 +208,7 @@
         </div>
 
         <div class="group-row">
-          <label>pago</label>
+          <label> </label>
           <mat-slide-toggle
             class="group-slide"
             [color]="colorPago"
