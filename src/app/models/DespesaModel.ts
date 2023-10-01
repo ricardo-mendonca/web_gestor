@@ -1,11 +1,8 @@
-export class Despesa {
+export class DespesaModel {
   id: number;
   descricao: string;
   qtdParcela: number;
   parcela: number;
-  despesaFixa: string;
-  ativo: string;
-  pago: string;
   valorParcela: number;
   valorMulta: number;
   valorDesconto: number;
@@ -16,4 +13,7 @@ export class Despesa {
   bancoId: number;
   categoriaId: number;
   usuarioId: number;
+  ativo: boolean;
+  pago: boolean;
+  despesaFixa: boolean;
 }

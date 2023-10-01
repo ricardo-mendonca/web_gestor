@@ -7,118 +7,217 @@
     </div>
 
     <form class="form-page" [formGroup]="despesaForm" (submit)="enviar()">
-
       <div class="row">
         <div class="group-row">
           <label>Descrição</label>
-          <input type="text" name="descricao" id="descricao" placeholder="Descrição" formControlName="descricao" required/>
-          <label class="error-input" *ngIf="despesaForm.get('descricao')?.errors?.['required'] && despesaForm.get('descricao')?.touched" >
+          <input
+            type="text"
+            name="descricao"
+            id="descricao"
+            placeholder="Descrição"
+            formControlName="descricao"
+            required
+          />
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('descricao')?.errors?.['required'] && despesaForm.get('descricao')?.touched"
+          >
             Campo Obrigatório!
           </label>
-
         </div>
 
         <div class="group-row">
           <label>Data de vencimento</label>
-          <input type="date" name="dataVencimento" id="dataVencimento" placeholder="dataVencimento" formControlName="dataVencimento" required />
-          <label class="error-input" *ngIf="despesaForm.get('dataVencimento')?.errors?.['required'] && despesaForm.get('dataVencimento')?.touched">
+          <input
+            type="date"
+            name="dataVencimento"
+            id="dataVencimento"
+            placeholder="dataVencimento"
+            formControlName="dataVencimento"
+            required
+          />
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('dataVencimento')?.errors?.['required'] && despesaForm.get('dataVencimento')?.touched"
+          >
             Campo Obrigatório!
           </label>
         </div>
 
         <div class="group-row">
           <label>dataPagamento</label>
-          <input type="date" name="dataPagamento" id="dataPagamento" placeholder="dataPagamento" formControlName="dataPagamento"required/>
-          <label class="error-input" *ngIf="despesaForm.get('dataPagamento')?.errors?.['required'] && despesaForm.get('dataPagamento')?.touched">
+          <input
+            type="date"
+            name="dataPagamento"
+            id="dataPagamento"
+            placeholder="dataPagamento"
+            formControlName="dataPagamento"
+            required
+          />
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('dataPagamento')?.errors?.['required'] && despesaForm.get('dataPagamento')?.touched"
+          >
             Campo Obrigatório!
           </label>
         </div>
-
       </div>
 
-
-      <div class="row ">
+      <div class="row">
         <div class="group-row">
           <label>Valor</label>
-          <input type="text" name="valorParcela" id="valorParcela" placeholder="R$ 0,00" formControlName="valorParcela" (input)="formatarMoeda($event)" required />
-          <label class="error-input" *ngIf="despesaForm.get('valorParcela')?.errors?.['required'] && despesaForm.get('valorParcela')?.touched" >
+          <input
+            type="text"
+            name="valorParcela"
+            id="valorParcela"
+            formControlName="valorParcela"
+            mask="separator.2"
+            thousandSeparator="."
+            prefix="R$ "
+            required
+          />
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('valorParcela')?.errors?.['required'] && despesaForm.get('valorParcela')?.touched"
+          >
             Campo Obrigatório!
           </label>
         </div>
 
         <div class="group-row">
           <label>valorMulta</label>
-          <input type="text" name="valorMulta" id="valorMulta" placeholder="R$ 0,00" formControlName="valorMulta" (input)="formatarMoeda($event)" required />
-          <label class="error-input" *ngIf="despesaForm.get('valorMulta')?.errors?.['required'] && despesaForm.get('valorMulta')?.touched">
+          <input
+            type="text"
+            name="valorMulta"
+            id="valorMulta"
+            formControlName="valorMulta"
+            mask="separator.2"
+            thousandSeparator="."
+            prefix="R$ "
+            required
+          />
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('valorMulta')?.errors?.['required'] && despesaForm.get('valorMulta')?.touched"
+          >
             Campo Obrigatório!
           </label>
         </div>
 
         <div class="group-row">
           <label>valorDesconto</label>
-          <input type="text" name="valorDesconto" id="valorDesconto" placeholder="R$ 0,00" formControlName="valorDesconto" (input)="formatarMoeda($event)" required/>
-          <label class="error-input" *ngIf="despesaForm.get('valorDesconto')?.errors?.['required'] && despesaForm.get('valorDesconto')?.touched">
+          <input
+            type="text"
+            name="valorDesconto"
+            id="valorDesconto"
+            formControlName="valorDesconto"
+            mask="separator.2"
+            thousandSeparator="."
+            prefix="R$ "
+            required
+          />
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('valorDesconto')?.errors?.['required'] && despesaForm.get('valorDesconto')?.touched"
+          >
             Campo Obrigatório!
           </label>
         </div>
       </div>
-
-
-
 
       <div class="row">
         <div class="group-row">
-            <label>Banco</label>
-           <ng-select
-            class="select-padrao" id="selectBanco" [(ngModel)]="sistemaSelect" [items]="listaDeBancos"  bindLabel="name"  [multiple]="false" [clearable]="false" [searchable]="false" formControlName="sistemaSelect" >
+          <label>Banco</label>
+          <ng-select
+            class="select-padrao"
+            id="listaDeBancos"
+            [(ngModel)]="bancoSelect"
+            [items]="listaDeBancos"
+            bindLabel="name"
+            [multiple]="false"
+            [clearable]="false"
+            [searchable]="false"
+            formControlName="bancoSelect"
+          >
           </ng-select>
-          <label class="error-input" *ngIf="despesaForm.get('selectBanco')?.errors?.['required'] && despesaForm.get('selectBanco')?.touched">
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('listaDeBancos')?.errors?.['required'] && despesaForm.get('listaDeBancos')?.touched"
+          >
             Campo Obrigatório!
           </label>
         </div>
 
-
         <div class="group-row">
           <label>Categoria</label>
+          <ng-select
+            class="select-padrao"
+            id="listaCategorias"
+            [(ngModel)]="categoriaSelect"
+            [items]="listaCategorias"
+            bindLabel="name"
+            [multiple]="false"
+            [clearable]="false"
+            [searchable]="false"
+            formControlName="categoriaSelect"
+          >
+          </ng-select>
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('listaCategorias')?.errors?.['required'] && despesaForm.get('listaCategorias')?.touched"
+          >
+            Campo Obrigatório!
+          </label>
         </div>
       </div>
-
-
-
 
       <div class="row">
         <div class="group-row">
           <label>Qtd parcelas</label>
-          <input type="number" name="qtdParcela" id="qtdParcela" placeholder="qtdParcela" formControlName="qtdParcela" required />
-          <label class="error-input" *ngIf="despesaForm.get('qtdParcela')?.errors?.['required'] && despesaForm.get('qtdParcela')?.touched" >
+          <input
+            type="number"
+            name="qtdParcela"
+            id="qtdParcela"
+            placeholder="qtdParcela"
+            formControlName="qtdParcela"
+            required
+          />
+          <label
+            class="error-input"
+            *ngIf="despesaForm.get('qtdParcela')?.errors?.['required'] && despesaForm.get('qtdParcela')?.touched"
+          >
             Campo Obrigatório!
           </label>
         </div>
       </div>
 
-
-
       <div class="row">
         <div class="group-row">
-          <label>despesaFixa</label>
-          <input type="number" name="despesaFixa" id="despesaFixa" placeholder="despesaFixa" formControlName="despesaFixa" required />
-          <label class="error-input" *ngIf="despesaForm.get('despesaFixa')?.errors?.['required'] && despesaForm.get('despesaFixa')?.touched" >
-            Campo Obrigatório!
-          </label>
+          <label>Despesa Fixa</label>
+          <mat-slide-toggle
+            class="group-slide"
+            [color]="colorFixo"
+            [checked]="checkedFixo"
+            [disabled]="disabledFixo"
+            (change)="handleChangeDespesaFixa($event)"
+          >
+            Despesa Fixa?
+          </mat-slide-toggle>
         </div>
 
         <div class="group-row">
           <label>pago</label>
-          <input type="number" name="pago" id="pago" placeholder="pago" formControlName="pago" required />
-          <label class="error-input" *ngIf="despesaForm.get('pago')?.errors?.['required'] && despesaForm.get('pago')?.touched" >
-            Campo Obrigatório!
-          </label>
+          <mat-slide-toggle
+            class="group-slide"
+            [color]="colorPago"
+            [checked]="checkedPago"
+            [disabled]="disabledPago"
+            (change)="handleChangePago($event)"
+          >
+            Pago?
+          </mat-slide-toggle>
         </div>
       </div>
-
-
-
-
 
       <!--
 "descricao": "Ford Focus",
@@ -155,4 +254,3 @@
     </form>
   </div>
 </div>
-
