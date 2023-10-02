@@ -13,7 +13,7 @@ export class DespesaModel {
   bancoId: number;
   categoriaId: number;
   usuarioId: number;
-  ativo: boolean;
-  pago: boolean;
-  despesaFixa: boolean;
+  ativo: string;
+  pago: string;
+  despesaFixa: string;
 }
