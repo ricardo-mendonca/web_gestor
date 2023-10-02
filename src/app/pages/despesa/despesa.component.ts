@@ -8,6 +8,8 @@ import { BancoModel } from 'src/app/models/BancoModel';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { CategoriaModel } from 'src/app/models/CategoriaModel';
 import { DespesaModel } from 'src/app/models/DespesaModel';
+import { DespesaService } from 'src/app/services/despesa.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-despesa',
@@ -18,9 +20,10 @@ export class DespesaComponent {
   constructor(
     public menuService: MenuService,
     public formBuilder: FormBuilder,
-   // public despesaService: DespesaService,
+    public despesaService: DespesaService,
     public bancoService: BancoService,
     public categoriaService: CategoriaService,
+    private toastr: ToastrService
   ) {}
 
   listaDeBancos = new Array<SelectModel>();
@@ -42,11 +45,10 @@ export class DespesaComponent {
 
   ngOnInit() {
     this.despesaForm = this.formBuilder.group({
-
       valor: ['', [Validators.required]],
       data: ['', [Validators.required]],
       categoriaSelect: ['', [Validators.required]],
-      bancoSelect: ['',[Validators.required]],
+      bancoSelect: ['', [Validators.required]],
       despesaFixa: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       valorParcela: ['', [Validators.required]],
@@ -54,7 +56,7 @@ export class DespesaComponent {
       valorDesconto: ['', [Validators.required]],
       pago: ['', [Validators.required]],
       dataVencimento: ['', [Validators.required]],
-      dataPagamento: ['', ],
+      dataPagamento: [''],
       qtdParcela: ['', [Validators.required]],
     });
 
@@ -66,7 +68,9 @@ export class DespesaComponent {
     return this.despesaForm.controls;
   }
 
-
+  ShowSucess() {
+    this.toastr.success('Salvo com sucesso!');
+  }
 
   handleChangePago(item: any) {
     this.checkedPago = item.checked as boolean;
@@ -105,9 +109,7 @@ export class DespesaComponent {
         });
         this.listaCategorias = listCategoria;
       });
-
-
-    }
+  }
 
   enviar() {
     //debugger
@@ -115,41 +117,43 @@ export class DespesaComponent {
 
     let item = new DespesaModel();
 
-    item.id = 0;
-    item.descricao = dados["descricao"].value;
+    item.descricao = dados['descricao'].value;
+    item.qtdParcela = dados['qtdParcela'].value;
 
-    item.valorParcela = (dados["valorParcela"].value);
-    item.valorMulta = dados["valorMulta"].value;
-    item.valorDesconto = dados["valorDesconto"].value;
+    item.ativo = '1';
+    if (this.checkedPago == true) {
+      item.pago = '1';
+    } else {
+      item.pago = '0';
+    }
+    if (this.checkedFixo == true) {
+      item.despesaFixa = '1';
+    } else {
+      item.despesaFixa = '0';
+    }
 
-    item.qtdParcela = dados["qtdParcela"].value;
+    item.valorParcela = dados['valorParcela'].value;
+    item.valorMulta = dados['valorMulta'].value;
+    item.valorDesconto = dados['valorDesconto'].value;
+    item.dataVencimento = dados['dataVencimento'].value;
 
+    if (dados['dataPagamento'].value != '') {
+      item.dataPagamento = dados['dataPagamento'].value;
+    }
     item.bancoId = parseInt(this.bancoSelect.id);
     item.categoriaId = parseInt(this.categoriaSelect.id);
+    item.usuarioId = 0;
 
-    item.dataVencimento = dados["dataVencimento"].value;
-    item.dataPagamento = dados["dataPagamento"].value;
+    console.log(item);
 
-    item.pago = this.checkedPago;
-    item.despesaFixa = this.checkedFixo;
+    this.despesaService.CreateDespesa(item).subscribe(
+      (response: DespesaModel) => {
+        this.ShowSucess();
+        //this.despesaForm.reset();
+      },
+      (error) => console.error(error),
 
-
-    console.log( dados["valorParcela"].value);
-    console.log( dados["valorMulta"].value );
-    console.log( dados["valorDesconto"].value );
-
-    console.log( item );
-
-    //this.despesaService.AdicionarDespesa(item).subscribe((response: DespesaModel) => {
-//
-//      this.despesaForm.reset();
-//    },(error) => console.error(error),
+      () => {}
+    );
   }
-//    () => {});
-
-
-
-
-
-  }
-
+}
