@@ -14,14 +14,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./banco.component.scss'],
 })
 export class BancoComponent {
-  constructor(
-    public menuService: MenuService,
-    public formBuilder: FormBuilder,
-    public bancoService: BancoService,
-    public authService: AuthService,
-    private toastr: ToastrService
-  ) {}
 
+  //#region Paginacao
   tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
   tableListSistemas: Array<BancoModel>;
   id: string;
@@ -79,6 +73,15 @@ export class BancoComponent {
       () => {}
     );
   }
+  //#endregion
+
+  constructor(
+    public menuService: MenuService,
+    public formBuilder: FormBuilder,
+    public bancoService: BancoService,
+    public authService: AuthService,
+    private toastr: ToastrService
+  ) {}
 
   sistemaForm: FormGroup;
 
@@ -87,6 +90,12 @@ export class BancoComponent {
   }
 
   ngOnInit() {
+    this.menuService.menuSelecionado = 2;
+
+    this.configpag();
+
+    this.ListaSistemasUsuario();
+
     this.sistemaForm = this.formBuilder.group({
       descricao: ['', [Validators.required]],
     });
