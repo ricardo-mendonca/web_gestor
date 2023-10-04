@@ -12,6 +12,66 @@ import { MenuService } from 'src/app/services/menu.service';
   styleUrls: ['./categoria.component.scss'],
 })
 export class CategoriaComponent {
+  //#region Paginacao
+  tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
+  tableListSistemas: Array<CategoriaModel>;
+  id: string;
+
+  page: number = 1;
+  config: any;
+  paginacao: boolean = true;
+  itemsPorPagina: number = 10;
+
+  configpag() {
+    this.id = this.gerarIdParaConfigDePaginacao();
+
+    this.config = {
+      id: this.id,
+      currentPage: this.page,
+      itemsPerPage: this.itemsPorPagina,
+    };
+  }
+
+  gerarIdParaConfigDePaginacao() {
+    var result = '';
+    var characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < 10; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  cadastro() {
+    this.tipoTela = 2;
+    this.categoriaForm.reset();
+  }
+
+  mudarItemsPorPage() {
+    this.page = 1;
+    this.config.currentPage = this.page;
+    this.config.itemsPerPage = this.itemsPorPagina;
+  }
+
+  mudarPage(event: any) {
+    this.page = event;
+    this.config.currentPage = this.page;
+  }
+
+  ListaCategoriaUsuario() {
+    this.tipoTela = 1;
+
+    this.categoriaService.GetCategorias().subscribe(
+      (response: Array<CategoriaModel>) => {
+        this.tableListSistemas = response;
+      },
+      (error) => console.error(error),
+      () => {}
+    );
+  }
+  //#endregion
+
   constructor(
     public menuService: MenuService,
     public formBuilder: FormBuilder,
@@ -21,6 +81,10 @@ export class CategoriaComponent {
   categoriaForm: FormGroup;
 
   ngOnInit() {
+    this.menuService.menuSelecionado = 2;
+    this.configpag();
+    this.ListaCategoriaUsuario();
+
     this.categoriaForm = this.formBuilder.group({
       name: ['', [Validators.required]],
     });
@@ -35,7 +99,7 @@ export class CategoriaComponent {
   enviar() {
     //debugger;
     var dados = this.dadorForm();
-    console.log(dados);
+    //console.log(dados);
 
     let item = new CategoriaModel();
     item.descricao = dados['name'].value;
@@ -44,9 +108,10 @@ export class CategoriaComponent {
     item.id = '0';
 
     this.categoriaService.CreateCategoria(item).subscribe(
-      (response:CategoriaModel) => {
+      (response: CategoriaModel) => {
         this.ShowSucess();
         this.categoriaForm.reset();
+        this.ListaCategoriaUsuario();
       },
       (error) => console.error(error),
       () => {}
