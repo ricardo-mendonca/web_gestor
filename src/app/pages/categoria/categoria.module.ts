@@ -5,8 +5,10 @@ import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 import { CategoriaComponent } from './categoria.component';
 import { CategoriaRoutingModule } from './categoria-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
+//
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule(
     {
@@ -18,6 +20,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
           NavbarModule,
           FormsModule,
           ReactiveFormsModule,
+
+          NgxPaginationModule,
+          FormsModule,
+          NgSelectModule,
+          MatIconModule,
 
         ]
     }

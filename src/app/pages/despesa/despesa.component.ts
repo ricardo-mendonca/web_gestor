@@ -17,6 +17,67 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./despesa.component.scss'],
 })
 export class DespesaComponent {
+  //#region Paginacao
+  tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
+  tableListDespesa: Array<DespesaModel>;
+  id: string;
+
+  page: number = 1;
+  config: any;
+  paginacao: boolean = true;
+  itemsPorPagina: number = 10;
+
+  configpag() {
+    this.id = this.gerarIdParaConfigDePaginacao();
+
+    this.config = {
+      id: this.id,
+      currentPage: this.page,
+      itemsPerPage: this.itemsPorPagina,
+    };
+  }
+
+  gerarIdParaConfigDePaginacao() {
+    var result = '';
+    var characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < 10; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  cadastro() {
+    this.tipoTela = 2;
+    this.despesaForm.reset();
+  }
+
+  mudarItemsPorPage() {
+    this.page = 1;
+    this.config.currentPage = this.page;
+    this.config.itemsPerPage = this.itemsPorPagina;
+  }
+
+  mudarPage(event: any) {
+    this.page = event;
+    this.config.currentPage = this.page;
+  }
+
+  ListaDespesaUsuario() {
+    this.tipoTela = 1;
+    //console.log("despesa");
+    this.despesaService.GetDespesaMes().subscribe(
+      (response: Array<DespesaModel>) => {
+        //console.log(response);
+        this.tableListDespesa = response;
+      },
+      (error) => console.error(error),
+      () => {}
+    );
+  }
+  //#endregion
+
   constructor(
     public menuService: MenuService,
     public formBuilder: FormBuilder,
@@ -44,6 +105,10 @@ export class DespesaComponent {
   despesaForm: FormGroup;
 
   ngOnInit() {
+    this.menuService.menuSelecionado = 2;
+    this.configpag();
+    this.ListaDespesaUsuario();
+
     this.despesaForm = this.formBuilder.group({
       valor: ['', [Validators.required]],
       data: ['', [Validators.required]],
@@ -149,7 +214,8 @@ export class DespesaComponent {
     this.despesaService.CreateDespesa(item).subscribe(
       (response: DespesaModel) => {
         this.ShowSucess();
-        //this.despesaForm.reset();
+        this.despesaForm.reset();
+        this.ListaDespesaUsuario();
       },
       (error) => console.error(error),
 

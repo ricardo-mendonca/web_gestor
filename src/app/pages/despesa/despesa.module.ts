@@ -9,6 +9,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [DespesaComponent],
@@ -21,7 +23,10 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     NgSelectModule,
     MatSlideToggleModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+
+    NgxPaginationModule,
+    MatIconModule,
   ],
   providers: [
     provideNgxMask()

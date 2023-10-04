@@ -62,7 +62,7 @@ export class BancoComponent {
     this.config.currentPage = this.page;
   }
 
-  ListaSistemasUsuario() {
+  ListaBancoUsuario() {
     this.tipoTela = 1;
 
     this.bancoService.GetBancos().subscribe(
@@ -85,21 +85,23 @@ export class BancoComponent {
 
   sistemaForm: FormGroup;
 
-  ShowSucess() {
-    this.toastr.success('Salvo com sucesso!');
-  }
-
   ngOnInit() {
     this.menuService.menuSelecionado = 2;
 
     this.configpag();
 
-    this.ListaSistemasUsuario();
+    this.ListaBancoUsuario();
 
     this.sistemaForm = this.formBuilder.group({
       descricao: ['', [Validators.required]],
     });
   }
+
+  ShowSucess() {
+    this.toastr.success('Salvo com sucesso!');
+  }
+
+
 
   dadorForm() {
     return this.sistemaForm.controls;
@@ -120,6 +122,7 @@ export class BancoComponent {
         this.ShowSucess();
 
         this.sistemaForm.reset();
+        this.ListaBancoUsuario();
       },
       (error) => console.error(error),
       () => {}
