@@ -113,8 +113,6 @@ label {
 
 /* #region SELECT PADRÃO */
 
-
-
  .select-padrao {
   background: #ffffff;
   box-sizing: border-box;
@@ -282,6 +280,7 @@ table {
   line-height: 21px;
   color: #585656;
 
+
 }
 
 .container-pagination {
@@ -296,7 +295,11 @@ table {
   border-radius: 5px !important;
 }
 
+.mostrar-drop{
+  width: 38px;
+  height: 42px;
 
+}
 
 /* #endregion */
 
