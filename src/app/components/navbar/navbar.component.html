@@ -1,11 +1,30 @@
 <mat-toolbar color="primary" class="navbar">
   <div (click)="home()" class="button">Gestor Web</div>
   <div>
-    <span (click)="home()" class="button">Home</span>
-    <span  (click)="banco()" class="button">Banco</span>
-    <span  (click)="categoria()" class="button">Categoria</span>
-    <span  (click)="despesa()" class="button">Despesa</span>
+
+    <button mat-button class="button">
+      <span (click)="home()" class="button">Home</span>
+    </button>
+
+    <button mat-button class="button" >
+      <span (click)="despesa()">Despesa</span>
+    </button>
+
+    <button mat-button class="button" [matMenuTriggerFor]="afterMenu">
+      Configuração
+    </button>
+    <mat-menu #afterMenu="matMenu" xPosition="after">
+      <button mat-menu-item><span (click)="banco()">Banco</span></button>
+      <button mat-menu-item>
+        <span (click)="categoria()">Categoria</span>
+      </button>
+    </mat-menu>
+
     <span></span>
-    <span (click)="logout()" class="button">Sair</span>
+    <span></span>
+    <button mat-button class="button" >
+      <span (click)="logout()" class="button">Sair</span>
+    </button>
+
   </div>
 </mat-toolbar>
