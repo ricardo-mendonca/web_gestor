@@ -90,9 +90,7 @@ export class BancoComponent {
 
   ngOnInit() {
     this.menuService.menuSelecionado = 2;
-
     this.configpag();
-
     this.ListaBancoUsuario();
 
     this.sistemaForm = this.formBuilder.group({
@@ -114,6 +112,7 @@ export class BancoComponent {
   enviar() {
     //debugger;
     var dados = this.dadorForm();
+
     if (this.itemEdicao) {
       this.itemEdicao.descricao = dados['descricao'].value;
       this.itemEdicao.usuarioId = '0';
@@ -124,7 +123,6 @@ export class BancoComponent {
         this.itemEdicao.ativo = '0';
       }
 
-      console.log(this.itemEdicao);
 
       this.bancoService.UpdateBanco(this.itemEdicao).subscribe(
         (response: BancoModel) => {
@@ -146,8 +144,6 @@ export class BancoComponent {
       } else {
         item.ativo = '0';
       }
-
-      console.log(item);
 
       this.bancoService.CreateBanco(item).subscribe(
         (response: BancoModel) => {

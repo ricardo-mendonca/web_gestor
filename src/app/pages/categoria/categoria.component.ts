@@ -12,6 +12,7 @@ import { MenuService } from 'src/app/services/menu.service';
   styleUrls: ['./categoria.component.scss'],
 })
 export class CategoriaComponent {
+
   //#region Paginacao
   tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
   tableListSistemas: Array<CategoriaModel>;
@@ -60,6 +61,7 @@ export class CategoriaComponent {
   }
 
   ListaCategoriaUsuario() {
+    this.itemEdicao = null;
     this.tipoTela = 1;
 
     this.categoriaService.GetCategorias().subscribe(
@@ -78,7 +80,12 @@ export class CategoriaComponent {
     public categoriaService: CategoriaService,
     private toastr: ToastrService
   ) {}
+
   categoriaForm: FormGroup;
+
+  color = '#673ab7';
+  checkedAtivo = true;
+  disabledAtivo = false;
 
   ngOnInit() {
     this.menuService.menuSelecionado = 2;
@@ -92,29 +99,81 @@ export class CategoriaComponent {
   ShowSucess() {
     this.toastr.success('Salvo com sucesso!');
   }
+
+  handleChangeAtivo(item: any) {
+    this.checkedAtivo = item.checked as boolean;
+  }
+
   dadorForm() {
     return this.categoriaForm.controls;
   }
 
   enviar() {
-    //debugger;
     var dados = this.dadorForm();
-    //console.log(dados);
 
-    let item = new CategoriaModel();
-    item.descricao = dados['name'].value;
-    item.ativo = '1';
-    item.usuarioId = '0';
-    item.id = '0';
+    if (this.itemEdicao) {
+      this.itemEdicao.descricao = dados['name'].value;
+      this.itemEdicao.usuarioId = '0';
 
-    this.categoriaService.CreateCategoria(item).subscribe(
+      if (this.checkedAtivo == true) {
+        this.itemEdicao.ativo = '1';
+      } else {
+        this.itemEdicao.ativo = '0';
+      }
+
+      this.categoriaService.UpdateCategoria(this.itemEdicao).subscribe(
+        (response: CategoriaModel) => {
+
+          this.ShowSucess();
+          this.categoriaForm.reset();
+          this.ListaCategoriaUsuario();
+        },
+        (error) => console.error(error),
+        () => {}
+      );
+    } else {
+      let item = new CategoriaModel();
+      item.descricao = dados['name'].value;
+      item.usuarioId = '0';
+      item.id = 0;
+
+
+      this.categoriaService.CreateCategoria(item).subscribe(
+        (response: CategoriaModel) => {
+          this.ShowSucess();
+          this.categoriaForm.reset();
+          this.ListaCategoriaUsuario();
+        },
+        (error) => console.error(error),
+        () => {}
+      );
+    }
+  }
+
+  //#region EDITAR ITEM
+  itemEdicao: CategoriaModel;
+
+  edicao(id: number) {
+    this.categoriaService.GetCategoriaId(id).subscribe(
       (response: CategoriaModel) => {
-        this.ShowSucess();
-        this.categoriaForm.reset();
-        this.ListaCategoriaUsuario();
+        if (response) {
+          this.itemEdicao = response;
+          this.tipoTela = 2;
+
+          var dados = this.dadorForm();
+          dados['name'].setValue(this.itemEdicao.descricao);
+
+          if (this.itemEdicao.ativo == '0') {
+            this.checkedAtivo = false;
+          } else {
+            this.checkedAtivo = true;
+          }
+
+        }
       },
-      (error) => console.error(error),
-      () => {}
+      (error) => console.error(error)
     );
   }
+
+  //#endregion
 }

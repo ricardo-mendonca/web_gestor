@@ -14,9 +14,6 @@ export class RecuperarSenhaService{
   private readonly baseUrl = environment["endpoint"];
 
   ResetPassword(email: string){
-    console.log("ResetPassword");
-    console.log(this.baseUrl);
-
       return this.httpClient.post(`${this.baseUrl}/ResetPassword`, { email: email });
   }
 }

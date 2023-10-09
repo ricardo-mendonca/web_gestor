@@ -1,5 +1,5 @@
 export class CategoriaModel{
-  id:string="";
+  id:number;
 	descricao:string="";
 	usuarioId:string="";
 	ativo:string="";

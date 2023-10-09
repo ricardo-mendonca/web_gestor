@@ -21,4 +21,9 @@ export class DespesaService {
   GetDespesaMes(){
     return this.httpClient.get(`${this.baseURL}/GetDespesaMes?dataI=2020-01-01&dataF=2024-11-13`);
   }
+
+  GetDespesasId(Id: number){
+    return this.httpClient.get(`${this.baseURL}/GetDespesasId?id=${Id}`);
+  }
+
 }
