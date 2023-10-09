@@ -15,16 +15,19 @@ export class BancoService {
     return this.httpClient.post<BancoModel>(`${this.baseURL}/CreateBanco`,banco);
   }
 
-
-  GetBancoId(Id: number) {
-    return this.httpClient.get(`${this.baseURL}/GetBancoId?Id=${Id}`);
-  }
-
   GetBancos(){
     return this.httpClient.get(`${this.baseURL}/GetBancos`);
   }
 
+  GetBancoId(Id: number) {
+    return this.httpClient.get(`${this.baseURL}/GetBancoId/${Id}`);
+  }
 
   //UpdateBanco
+  UpdateBanco(banco: BancoModel){
+
+    return this.httpClient.put<BancoModel>(`${this.baseURL}/UpdateBanco/${banco.id}`,banco);
+
+  }
   //DeleteBanco
 }

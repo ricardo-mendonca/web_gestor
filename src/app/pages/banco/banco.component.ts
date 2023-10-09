@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { BancoModel } from 'src/app/models/BancoModel';
 import { BancoService } from 'src/app/services/banco.service';
 import { MenuService } from 'src/app/services/menu.service';
 import { AuthService } from 'src/app/services/auth.service';
-
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,7 +13,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./banco.component.scss'],
 })
 export class BancoComponent {
-
   //#region Paginacao
   tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
   tableListSistemas: Array<BancoModel>;
@@ -63,11 +61,13 @@ export class BancoComponent {
   }
 
   ListaBancoUsuario() {
+    this.itemEdicao = null;
     this.tipoTela = 1;
 
     this.bancoService.GetBancos().subscribe(
       (response: Array<BancoModel>) => {
         this.tableListSistemas = response;
+
       },
       (error) => console.error(error),
       () => {}
@@ -84,6 +84,9 @@ export class BancoComponent {
   ) {}
 
   sistemaForm: FormGroup;
+  color = '#673ab7';
+  checkedAtivo = true;
+  disabledAtivo = false;
 
   ngOnInit() {
     this.menuService.menuSelecionado = 2;
@@ -97,11 +100,12 @@ export class BancoComponent {
     });
   }
 
-  ShowSucess() {
-    this.toastr.success('Salvo com sucesso!');
+  ShowSucess(msg) {
+    this.toastr.success(msg);
   }
-
-
+  handleChangeAtivo(item: any) {
+    this.checkedAtivo = item.checked as boolean;
+  }
 
   dadorForm() {
     return this.sistemaForm.controls;
@@ -110,22 +114,78 @@ export class BancoComponent {
   enviar() {
     //debugger;
     var dados = this.dadorForm();
+    if (this.itemEdicao) {
+      this.itemEdicao.descricao = dados['descricao'].value;
+      this.itemEdicao.usuarioId = '0';
 
-    let item = new BancoModel();
-    item.descricao = dados['descricao'].value;
-    item.ativo = '1';
-    item.usuarioId = '0';
-    item.id = '0';
+      if (this.checkedAtivo == true) {
+        this.itemEdicao.ativo = '1';
+      } else {
+        this.itemEdicao.ativo = '0';
+      }
 
-    this.bancoService.CreateBanco(item).subscribe(
+      console.log(this.itemEdicao);
+
+      this.bancoService.UpdateBanco(this.itemEdicao).subscribe(
+        (response: BancoModel) => {
+          this.ShowSucess('Alterado com sucesso!');
+
+          this.sistemaForm.reset();
+          this.ListaBancoUsuario();
+        },
+        (error) => console.error(error),
+        () => {}
+      );
+    } else {
+      let item = new BancoModel();
+      item.descricao = dados['descricao'].value;
+      item.usuarioId = '0';
+      item.id = 0;
+      if (this.checkedAtivo == true) {
+        item.ativo = '1';
+      } else {
+        item.ativo = '0';
+      }
+
+      console.log(item);
+
+      this.bancoService.CreateBanco(item).subscribe(
+        (response: BancoModel) => {
+          this.ShowSucess('Salvo com sucesso!');
+
+          this.sistemaForm.reset();
+          this.ListaBancoUsuario();
+        },
+        (error) => console.error(error),
+        () => {}
+      );
+    }
+  }
+
+  //#region ALTERAR CADASTRO
+  itemEdicao: BancoModel;
+
+  edicao(id: number) {
+    this.bancoService.GetBancoId(id).subscribe(
       (response: BancoModel) => {
-        this.ShowSucess();
+        if (response) {
+          this.itemEdicao = response;
+          this.tipoTela = 2;
 
-        this.sistemaForm.reset();
-        this.ListaBancoUsuario();
+          var dados = this.dadorForm();
+          dados['descricao'].setValue(this.itemEdicao.descricao);
+
+          if (this.itemEdicao.ativo == '0') {
+            this.checkedAtivo = false;
+          } else {
+            this.checkedAtivo = true;
+          }
+        }
       },
       (error) => console.error(error),
       () => {}
     );
   }
+
+  //#endregion
 }
