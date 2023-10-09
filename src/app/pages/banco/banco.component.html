@@ -1,11 +1,14 @@
 <app-navbar></app-navbar>
 
+<!-- TELA CADASTRO ALTERAÇÃO -->
 <div *ngIf="tipoTela == 2" class="container-base">
   <div class="content-page">
     <div class="header-info-2">
-        <div class="card-header">
+      <div class="card-header">
         <div class="card-title">Cadastro de Banco</div>
-        <div (click)="ListaBancoUsuario()" class="card-menu"> Listagem de Bancos </div>
+        <div (click)="ListaBancoUsuario()" class="card-menu">
+          Listagem de Bancos
+        </div>
       </div>
     </div>
 
@@ -30,7 +33,21 @@
           </label>
         </div>
       </div>
-
+      <div class="row">
+        <div class="group-row">
+          <label> </label>
+          <mat-slide-toggle
+            class="group-slide"
+            [color]="color"
+            [checked]="checkedAtivo"
+            [disabled]="disabledAtivo"
+            (change)="handleChangeAtivo($event)"
+          >
+            Ativo?
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <div class="row"></div>
       <div class="row">
         <div class="group-row">
           <input type="submit" value="Salvar" class="btn-primary" />
@@ -40,12 +57,13 @@
   </div>
 </div>
 
+<!-- TELA LISTAGEM -->
 <div *ngIf="tipoTela == 1" class="container-base">
   <div class="content-page">
     <div class="header-info-2">
       <div class="card-header">
-        <div class="card-title"> Listagem de Bancos </div>
-        <div (click)="cadastro()" class="card-menu"> Cadastro de Banco </div>
+        <div class="card-title">Listagem de Bancos</div>
+        <div (click)="cadastro()" class="card-menu">Cadastro de Banco</div>
       </div>
 
       <table cellspacing="0" cellpadding="0">
@@ -60,23 +78,48 @@
         </thead>
         <tbody>
           <tr
-            class="select-item" *ngFor=" let item of tableListSistemas | paginate : config; let i = index "
-            class="linha-table" [ngClass]="{ 'linha-cinza': i % 2 == 0, 'linha-branca': i % 2 !== 0 }"
+            class="select-item"
+            *ngFor="
+              let item of tableListSistemas | paginate : config;
+              let i = index
+            "
+            class="linha-table"
+            [ngClass]="{
+              'linha-cinza': i % 2 == 0,
+              'linha-branca': i % 2 !== 0
+            }"
           >
             <td>{{ item.id }}</td>
             <td>{{ item.descricao }}</td>
-            <td>{{ item.ativo }}</td>
-            <td>Edit</td>
+
+            <td>
+              <ng-template
+                [ngIf]="item.ativo === '1'"
+                [ngIfElse]="userLoggedOut"
+              >
+                <div>Sim</div>
+              </ng-template>
+              <ng-template #userLoggedOut>
+                <div>Não</div>
+              </ng-template>
+            </td>
+            <td (click)="edicao(item.id)">Edit</td>
           </tr>
         </tbody>
       </table>
 
       <div class="tabela-footer" *ngIf="paginacao && tableListSistemas">
         <label class="mostrar">Mostrar</label>
-        <ng-select  (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false" [searchable]="false" class="mostrar-drop">
-          <ng-option [value]="10">  10</ng-option>
-          <ng-option [value]="25">  25</ng-option>
-          <ng-option [value]="50">  50</ng-option>
+        <ng-select
+          (change)="mudarItemsPorPage()"
+          [(ngModel)]="itemsPorPagina"
+          [clearable]="false"
+          [searchable]="false"
+          class="mostrar-drop"
+        >
+          <ng-option [value]="10"> 10</ng-option>
+          <ng-option [value]="25"> 25</ng-option>
+          <ng-option [value]="50"> 50</ng-option>
           <ng-option [value]="100">100</ng-option>
         </ng-select>
 

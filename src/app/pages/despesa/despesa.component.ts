@@ -66,10 +66,10 @@ export class DespesaComponent {
 
   ListaDespesaUsuario() {
     this.tipoTela = 1;
-    //console.log("despesa");
+
     this.despesaService.GetDespesaMes().subscribe(
       (response: Array<DespesaModel>) => {
-        //console.log(response);
+
         this.tableListDespesa = response;
       },
       (error) => console.error(error),
@@ -209,7 +209,7 @@ export class DespesaComponent {
     item.categoriaId = parseInt(this.categoriaSelect.id);
     item.usuarioId = 0;
 
-    console.log(item);
+
 
     this.despesaService.CreateDespesa(item).subscribe(
       (response: DespesaModel) => {

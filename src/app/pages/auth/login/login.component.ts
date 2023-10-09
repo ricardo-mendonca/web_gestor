@@ -42,8 +42,6 @@ export class LoginComponent {
       .login(this.dadosForm['email'].value, this.dadosForm['senha'].value)
       .subscribe(
         (ret) => {
-          //console.log(ret);
-          //console.log(ret['nome']);
 
           this.authService.setToken(ret['accessToken'].toString());
           this.authService.UsuarioAutenticado(true);
@@ -52,7 +50,7 @@ export class LoginComponent {
         },
         (error) => {
           var resposta = error;
-          //console.log(resposta.error.message);
+
           resposta = resposta.error.message;
           this.ShowError(resposta);
           //alert(resposta);

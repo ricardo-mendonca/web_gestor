@@ -40,7 +40,6 @@ export class RecuperarsenhaComponent {
   }
 
   forgotUser() {
-    //console.log(this.dadosForm.value['email']);
     this.recuperarSenhaService
     .ResetPassword(this.dadosForm.value['email'] )
     .subscribe(

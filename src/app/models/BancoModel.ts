@@ -1,5 +1,5 @@
 export class BancoModel{
-  id:string="";
+  id:number;
 	descricao:string="";
 	usuarioId:string="";
 	ativo:string="";

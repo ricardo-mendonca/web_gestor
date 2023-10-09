@@ -21,6 +21,21 @@
                   </label>
               </div>
           </div>
+          <div class="row">
+            <div class="group-row">
+              <label> </label>
+              <mat-slide-toggle
+                class="group-slide"
+                [color]="color"
+                [checked]="checkedAtivo"
+                [disabled]="disabledAtivo"
+                (change)="handleChangeAtivo($event)"
+              >
+                Ativo?
+              </mat-slide-toggle>
+            </div>
+          </div>
+          <div class="row"></div>
 
           <div class="row">
               <div class="group-row">
@@ -60,8 +75,20 @@
           >
             <td>{{ item.id }}</td>
             <td>{{ item.descricao }}</td>
-            <td>{{ item.ativo }}</td>
-            <td>Edit</td>
+            <td>
+              <ng-template
+                [ngIf]="item.ativo === '1'"
+                [ngIfElse]="userLoggedOut"
+              >
+                <div>Sim</div>
+              </ng-template>
+              <ng-template #userLoggedOut>
+                <div>Não</div>
+              </ng-template>
+            </td>
+
+            <td (click)="edicao( item.id )">Edit</td>
+
           </tr>
         </tbody>
       </table>

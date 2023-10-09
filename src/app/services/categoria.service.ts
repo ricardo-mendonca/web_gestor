@@ -14,15 +14,21 @@ export class CategoriaService{
 
   private readonly baseURL = environment['endpoint'];
 
-
-
   CreateCategoria(categoria: CategoriaModel) {
-    console.log(this.baseURL);
     return this.httpClient.post<CategoriaModel>(`${this.baseURL}/CreateCategoria`, categoria);
   }
 
   GetCategorias(){
     return this.httpClient.get(`${this.baseURL}/GetCategoria`);
+  }
+
+  GetCategoriaId(Id: number){
+    return this.httpClient.get(`${this.baseURL}/GetCategoriaId/${Id}`);
+  }
+
+  UpdateCategoria(categoria: CategoriaModel){
+
+    return this.httpClient.put<CategoriaModel>(`${this.baseURL}/UpdateCategoria/${categoria.id}`,categoria);
   }
 
 
