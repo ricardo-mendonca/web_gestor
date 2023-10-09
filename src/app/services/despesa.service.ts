@@ -26,4 +26,8 @@ export class DespesaService {
     return this.httpClient.get(`${this.baseURL}/GetDespesasId?id=${Id}`);
   }
 
+  UpdateDespesa(despesa: DespesaModel){
+    return this.httpClient.put<DespesaModel>(`${this.baseURL}/UpdateDespesa/${despesa.id}`,despesa);
+  }
+
 }
