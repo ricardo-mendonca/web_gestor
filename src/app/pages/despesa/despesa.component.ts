@@ -10,7 +10,6 @@ import { CategoriaModel } from 'src/app/models/CategoriaModel';
 import { DespesaModel } from 'src/app/models/DespesaModel';
 import { DespesaService } from 'src/app/services/despesa.service';
 import { ToastrService } from 'ngx-toastr';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-despesa',
