@@ -38,7 +38,11 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+      closeButton:true,
+    }),
 
   ],
   providers: [

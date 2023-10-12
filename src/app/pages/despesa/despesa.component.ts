@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./despesa.component.scss'],
 })
 export class DespesaComponent {
+
   //#region Paginacao
   tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
   tableListDespesa: Array<DespesaModel>;
@@ -222,4 +223,37 @@ export class DespesaComponent {
       () => {}
     );
   }
+//#region editar despesa
+  itemEdicao: DespesaModel;
+
+  edicao(id:number){
+
+    this.despesaService.GetDespesasId(id).subscribe(
+      (response: DespesaModel) =>{
+        if(response){
+          this.itemEdicao = response;
+          this.tipoTela =2;
+
+          console.log(this.itemEdicao);
+          var dados = this.dadorForm();
+          dados['descricao'].setValue(this.itemEdicao.descricao);
+dados['dataVencimento'].setValue(this.itemEdicao.dataVencimento);
+dados['dataPagamento'].setValue(this.itemEdicao.dataPagamento);
+dados['valorParcela'].setValue(this.itemEdicao.valorParcela);
+dados['valorMulta'].setValue(this.itemEdicao.valorMulta);
+dados['valorDesconto'].setValue(this.itemEdicao.valorDesconto);
+dados['qtdParcela'].setValue(this.itemEdicao.qtdParcela);
+
+
+          if (this.itemEdicao.pago == '0') {this.checkedPago = false;} else {this.checkedPago = true;}
+
+          if (this.itemEdicao.despesaFixa == '0') {this.checkedFixo = false;} else {this.checkedFixo = true;}
+        }
+      },
+      (error) => console.error(error)
+    );
+
+  }
+
+  //#endregion
 }

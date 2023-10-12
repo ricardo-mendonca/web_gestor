@@ -246,11 +246,11 @@
         <thead>
           <tr>
             <!-- <td></td> -->
-            <td>Código</td>
-            <td>Nome</td>
-            <td>valorParcela</td>
-            <td>vencimento</td>
-            <td>pago</td>
+            <td>Id</td>
+            <td>Descrição/td>
+            <td>Valor Parcela</td>
+            <td>Vencimento</td>
+            <td>Pago</td>
             <td>Ação</td>
           </tr>
         </thead>
@@ -270,10 +270,21 @@
             <td>{{ item.id }}</td>
             <td>{{ item.descricao }}</td>
             <td>{{ item.valorParcela }}</td>
-            <td>{{ item.dataVencimento }}</td>
+            <td>{{ item.dataVencimento | date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <ng-template
+                [ngIf]="item.pago === '1'"
+                [ngIfElse]="userLoggedOut"
+              >
+                <div>Sim</div>
+              </ng-template>
+              <ng-template #userLoggedOut>
+                <div>Não</div>
+              </ng-template>
+            </td>
 
-            <td>{{ item.pago }}</td>
-            <td>Edit</td>
+            <td (click)="edicao(item.id)">Edit</td>
+
           </tr>
         </tbody>
       </table>
