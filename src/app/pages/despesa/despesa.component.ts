@@ -11,7 +11,6 @@ import { DespesaModel } from 'src/app/models/DespesaModel';
 import { DespesaService } from 'src/app/services/despesa.service';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-despesa',
