@@ -10,6 +10,7 @@ import { CategoriaModel } from 'src/app/models/CategoriaModel';
 import { DespesaModel } from 'src/app/models/DespesaModel';
 import { DespesaService } from 'src/app/services/despesa.service';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-despesa',
@@ -177,6 +178,10 @@ export class DespesaComponent {
       });
   }
 
+  getFormataPreco(price: number) {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
+  }
+
   enviar() {
     //debugger
     var dados = this.dadorForm();
@@ -211,7 +216,6 @@ export class DespesaComponent {
     item.usuarioId = 0;
 
 
-
     this.despesaService.CreateDespesa(item).subscribe(
       (response: DespesaModel) => {
         this.ShowSucess();
@@ -223,6 +227,11 @@ export class DespesaComponent {
       () => {}
     );
   }
+
+  voltar(){
+    this.ListaDespesaUsuario();
+  }
+
 //#region editar despesa
   itemEdicao: DespesaModel;
 
@@ -234,20 +243,26 @@ export class DespesaComponent {
           this.itemEdicao = response;
           this.tipoTela =2;
 
-          console.log(this.itemEdicao);
           var dados = this.dadorForm();
+
           dados['descricao'].setValue(this.itemEdicao.descricao);
-dados['dataVencimento'].setValue(this.itemEdicao.dataVencimento);
-dados['dataPagamento'].setValue(this.itemEdicao.dataPagamento);
-dados['valorParcela'].setValue(this.itemEdicao.valorParcela);
-dados['valorMulta'].setValue(this.itemEdicao.valorMulta);
-dados['valorDesconto'].setValue(this.itemEdicao.valorDesconto);
-dados['qtdParcela'].setValue(this.itemEdicao.qtdParcela);
-
-
+          dados['dataVencimento'].setValue(moment(this.itemEdicao.dataVencimento).format("yyyy-MM-DD"));
+          if(this.itemEdicao.dataPagamento.toString() != '0001-01-01T00:00:00'){
+            dados['dataPagamento'].setValue(moment(this.itemEdicao.dataPagamento).format("yyyy-MM-DD"));
+          }else{dados['dataPagamento'].setValue(null);}
+          dados['valorParcela'].setValue(this.getFormataPreco(this.itemEdicao.valorParcela));
+          dados['valorMulta'].setValue(this.getFormataPreco(this.itemEdicao.valorMulta ));
+          dados['valorDesconto'].setValue(this.getFormataPreco(this.itemEdicao.valorDesconto));
+          dados['qtdParcela'].setValue(this.itemEdicao.qtdParcela);
           if (this.itemEdicao.pago == '0') {this.checkedPago = false;} else {this.checkedPago = true;}
-
           if (this.itemEdicao.despesaFixa == '0') {this.checkedFixo = false;} else {this.checkedFixo = true;}
+
+          const bancoId = this.itemEdicao.bancoId.toString();
+          this.bancoSelect = this.listaDeBancos.find(item => item.id === bancoId);
+
+          const categoriaId = this.itemEdicao.categoriaId.toString()
+          this.categoriaSelect = this.listaCategorias.find(item => item.id === categoriaId);
+
         }
       },
       (error) => console.error(error)
