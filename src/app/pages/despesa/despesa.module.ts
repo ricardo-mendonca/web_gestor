@@ -11,7 +11,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatIconModule } from '@angular/material/icon';
-import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [DespesaComponent],
@@ -25,7 +25,7 @@ import { DatePipe } from '@angular/common';
     MatSlideToggleModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    DatePipe,
+
     NgxPaginationModule,
     MatIconModule,
   ],
