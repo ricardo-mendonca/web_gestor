@@ -15,6 +15,7 @@ export class CategoriaService{
   private readonly baseURL = environment['endpoint'];
 
   CreateCategoria(categoria: CategoriaModel) {
+    console.log(categoria);
     return this.httpClient.post<CategoriaModel>(`${this.baseURL}/CreateCategoria`, categoria);
   }
 

@@ -204,17 +204,37 @@ export class DespesaComponent {
     }
 
     item.valorParcela = dados['valorParcela'].value;
-    item.valorMulta = dados['valorMulta'].value;
-    item.valorDesconto = dados['valorDesconto'].value;
     item.dataVencimento = dados['dataVencimento'].value;
 
-    if (dados['dataPagamento'].value != '') {
-      item.dataPagamento = dados['dataPagamento'].value;
+    if(dados['valorMulta'].value != null){
+      item.valorMulta = dados['valorMulta'].value;
+    }else{
+      item.valorMulta = 0;
     }
-    item.bancoId = parseInt(this.bancoSelect.id);
+
+    if( dados['valorDesconto'].value != null){
+      item.valorDesconto = dados['valorDesconto'].value;
+    }else{
+      item.valorDesconto = 0;
+    }
+
+    if(this.bancoSelect.id > '0'){
+      item.bancoId = parseInt(this.bancoSelect.id);
+    }
+    else{
+      item.bancoId = 0;
+    }
+
+
+    if (dados['dataPagamento'].value != null) {
+      item.dataPagamento = dados['dataPagamento'].value;
+    }else
+    {item.dataPagamento = dados['dataVencimento'].value;}
+
     item.categoriaId = parseInt(this.categoriaSelect.id);
     item.usuarioId = 0;
 
+console.log(item);
 
     this.despesaService.CreateDespesa(item).subscribe(
       (response: DespesaModel) => {
