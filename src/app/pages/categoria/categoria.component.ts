@@ -133,6 +133,11 @@ export class CategoriaComponent {
       );
     } else {
       let item = new CategoriaModel();
+      if (this.checkedAtivo == true) {
+        item.ativo = '1';
+      } else {
+        item.ativo = '0';
+      }
       item.descricao = dados['name'].value;
       item.usuarioId = '0';
       item.id = 0;
