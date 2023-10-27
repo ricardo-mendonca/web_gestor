@@ -109,6 +109,9 @@ export class BancoComponent {
     return this.sistemaForm.controls;
   }
 
+  voltar(){
+    this.ListaBancoUsuario();
+  }
   enviar() {
     //debugger;
     var dados = this.dadorForm();
