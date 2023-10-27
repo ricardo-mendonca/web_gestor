@@ -154,7 +154,9 @@ export class CategoriaComponent {
       );
     }
   }
-
+  voltar(){
+    this.ListaCategoriaUsuario();
+  }
   //#region EDITAR ITEM
   itemEdicao: CategoriaModel;
 
