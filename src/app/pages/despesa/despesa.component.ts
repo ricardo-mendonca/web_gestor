@@ -202,8 +202,8 @@ export class DespesaComponent {
 
       this.itemEdicao.valorParcela = (dados['valorParcela'].value);
 
-      if (dados['valorMulta'].value != null) {this.itemEdicao.valorMulta = ((dados['valorMulta'].value));} else {this.itemEdicao.valorMulta = 0;}
-      if (dados['valorDesconto'].value != null) {this.itemEdicao.valorDesconto = (((dados['valorDesconto'].value)));} else {this.itemEdicao.valorDesconto = 0;}
+      if (dados['valorMulta'].value != null) {this.itemEdicao.valorMulta = (dados['valorMulta'].value);} else {this.itemEdicao.valorMulta = 0;}
+      if (dados['valorDesconto'].value != null) {this.itemEdicao.valorDesconto = (dados['valorDesconto'].value);} else {this.itemEdicao.valorDesconto = 0;}
       this.itemEdicao.descricao = dados['descricao'].value;
       this.itemEdicao.dataVencimento =  dados['dataVencimento'].value;
       if (dados['dataPagamento'].value != null) {this.itemEdicao.dataPagamento = dados['dataPagamento'].value;} else { this.itemEdicao.dataPagamento = dados['dataVencimento'].value; };
