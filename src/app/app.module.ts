@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CadastroComponent } from './pages/auth/cadastro/cadastro.component';
 import { RecuperarsenhaComponent } from './pages/auth/recuperarsenha/recuperarsenha.component';
 
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
 
 
 const RxJS = [LoaderInterceptor, HTTPStatus];
@@ -43,12 +44,16 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
       positionClass: 'toast-top-center',
       closeButton:true,
     }),
+    NgxMaskDirective, 
+    NgxMaskPipe
+   
 
   ],
   providers: [
     AuthGuard,
     RxJS,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    provideNgxMask()
   ],
   bootstrap: [AppComponent],
   exports:

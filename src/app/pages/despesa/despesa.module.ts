@@ -25,9 +25,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatSlideToggleModule,
     NgxMaskDirective,
     NgxMaskPipe,
-
+    
     NgxPaginationModule,
     MatIconModule,
+ 
   ],
   providers: [
     provideNgxMask()

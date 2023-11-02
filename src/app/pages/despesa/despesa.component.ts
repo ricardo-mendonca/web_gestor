@@ -50,10 +50,7 @@ export class DespesaComponent {
     return result;
   }
 
-  cadastro() {
-    this.tipoTela = 2;
-    this.despesaForm.reset();
-  }
+  
 
   mudarItemsPorPage() {
     this.page = 1;
@@ -75,7 +72,7 @@ export class DespesaComponent {
         this.tableListDespesa = response;
       },
       (error) => console.error(error),
-      () => {}
+      () => { }
     );
   }
   //#endregion
@@ -87,7 +84,10 @@ export class DespesaComponent {
     public bancoService: BancoService,
     public categoriaService: CategoriaService,
     private toastr: ToastrService
-  ) {}
+  ) { 
+   
+  }
+ 
 
   listaDeBancos = new Array<SelectModel>();
   sistemaSelect = new SelectModel();
@@ -103,6 +103,8 @@ export class DespesaComponent {
   colorFixo = '#673ab7';
   checkedFixo = false;
   disabledFixo = false;
+  
+ 
 
   despesaForm: FormGroup;
 
@@ -129,6 +131,16 @@ export class DespesaComponent {
 
     this.ListaBancoUsuario();
     this.ListaCategoria();
+  }
+  cadastro() {
+    this.tipoTela = 2;
+    this.disabledFixo = false;
+    this.despesaForm.reset();
+    this.categoriaSelect = null;
+    this.bancoSelect = null;
+    this.itemEdicao = null;
+    this.checkedPago = false;
+    this.checkedFixo = false;
   }
 
   dadorForm() {
@@ -178,104 +190,110 @@ export class DespesaComponent {
       });
   }
 
-  getFormataPreco(price: number) {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
+  formatter(value: number): string {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   }
+
 
   enviar() {
-    //debugger
     var dados = this.dadorForm();
+    console.log(this.itemEdicao);
+    if (this.itemEdicao) {
 
-    let item = new DespesaModel();
+      this.itemEdicao.valorParcela = (dados['valorParcela'].value);
 
-    item.descricao = dados['descricao'].value;
-    item.qtdParcela = dados['qtdParcela'].value;
-
-    item.ativo = '1';
-    if (this.checkedPago == true) {
-      item.pago = '1';
-    } else {
-      item.pago = '0';
+      if (dados['valorMulta'].value != null) {this.itemEdicao.valorMulta = (dados['valorMulta'].value);} else {this.itemEdicao.valorMulta = 0;}
+      if (dados['valorDesconto'].value != null) {this.itemEdicao.valorDesconto = (dados['valorDesconto'].value);} else {this.itemEdicao.valorDesconto = 0;}
+      this.itemEdicao.descricao = dados['descricao'].value;
+      this.itemEdicao.dataVencimento =  dados['dataVencimento'].value;
+      if (dados['dataPagamento'].value != null) {this.itemEdicao.dataPagamento = dados['dataPagamento'].value;} else { this.itemEdicao.dataPagamento = dados['dataVencimento'].value; };
+      if (this.bancoSelect.id > '0') {this.itemEdicao.bancoId = parseInt(this.bancoSelect.id);}else {this.itemEdicao.bancoId = 0;}
+      this.itemEdicao.categoriaId= parseInt(this.categoriaSelect.id);
+      if (this.checkedPago == true) {this.itemEdicao.pago = '1';} else {this.itemEdicao.pago = '0';}
+      
+      this.despesaService.UpdateDespesa(this.itemEdicao).subscribe(
+        (response: DespesaModel) => {
+          this.ShowSucess();
+          this.despesaForm.reset();
+          this.ListaDespesaUsuario();
+        },
+        (error) => console.error(error),
+        () => { }
+      );
     }
-    if (this.checkedFixo == true) {
-      item.despesaFixa = '1';
-    } else {
-      item.despesaFixa = '0';
+    else {
+
+      let item = new DespesaModel();
+      item.id = 0;
+
+      item.descricao = dados['descricao'].value;
+      item.qtdParcela = dados['qtdParcela'].value;
+
+      item.ativo = '1';
+      if (this.checkedPago == true) {item.pago = '1';} else {item.pago = '0';}
+      if (this.checkedFixo == true) {item.despesaFixa = '1';} else { item.despesaFixa = '0';}
+
+      item.valorParcela = dados['valorParcela'].value;
+      item.dataVencimento = dados['dataVencimento'].value;
+
+      if (dados['valorMulta'].value != null) {item.valorMulta = dados['valorMulta'].value;} else {item.valorMulta = 0;}
+
+      if (dados['valorDesconto'].value != null) {item.valorDesconto = dados['valorDesconto'].value;} else {item.valorDesconto = 0;}
+
+      if (this.bancoSelect.id > '0') {item.bancoId = parseInt(this.bancoSelect.id);}else {item.bancoId = 0;}
+
+      if (dados['dataPagamento'].value != null) {item.dataPagamento = dados['dataPagamento'].value;} else { item.dataPagamento = dados['dataVencimento'].value; }
+
+      item.categoriaId = parseInt(this.categoriaSelect.id);
+      item.usuarioId = 0;
+
+      console.log(item);
+
+      this.despesaService.CreateDespesa(item).subscribe(
+        (response: DespesaModel) => {
+          this.ShowSucess();
+          this.despesaForm.reset();
+          this.ListaDespesaUsuario();
+        },
+        (error) => console.error(error),
+
+        () => { }
+      );
     }
-
-    item.valorParcela = dados['valorParcela'].value;
-    item.dataVencimento = dados['dataVencimento'].value;
-
-    if(dados['valorMulta'].value != null){
-      item.valorMulta = dados['valorMulta'].value;
-    }else{
-      item.valorMulta = 0;
-    }
-
-    if( dados['valorDesconto'].value != null){
-      item.valorDesconto = dados['valorDesconto'].value;
-    }else{
-      item.valorDesconto = 0;
-    }
-
-    if(this.bancoSelect.id > '0'){
-      item.bancoId = parseInt(this.bancoSelect.id);
-    }
-    else{
-      item.bancoId = 0;
-    }
-
-
-    if (dados['dataPagamento'].value != null) {
-      item.dataPagamento = dados['dataPagamento'].value;
-    }else
-    {item.dataPagamento = dados['dataVencimento'].value;}
-
-    item.categoriaId = parseInt(this.categoriaSelect.id);
-    item.usuarioId = 0;
-
-console.log(item);
-
-    this.despesaService.CreateDespesa(item).subscribe(
-      (response: DespesaModel) => {
-        this.ShowSucess();
-        this.despesaForm.reset();
-        this.ListaDespesaUsuario();
-      },
-      (error) => console.error(error),
-
-      () => {}
-    );
   }
 
-  voltar(){
+  voltar() {
     this.ListaDespesaUsuario();
   }
 
-//#region editar despesa
+  //#region editar despesa
   itemEdicao: DespesaModel;
-
-  edicao(id:number){
+  edicao(id: number) {
 
     this.despesaService.GetDespesasId(id).subscribe(
-      (response: DespesaModel) =>{
-        if(response){
+      (response: DespesaModel) => {
+        if (response) {
+
           this.itemEdicao = response;
-          this.tipoTela =2;
+          this.tipoTela = 2;
+
+          this.disabledFixo = true;
 
           var dados = this.dadorForm();
 
           dados['descricao'].setValue(this.itemEdicao.descricao);
           dados['dataVencimento'].setValue(moment(this.itemEdicao.dataVencimento).format("yyyy-MM-DD"));
-          if(this.itemEdicao.dataPagamento.toString() != '0001-01-01T00:00:00'){
+          if (this.itemEdicao.dataPagamento.toString() != '0001-01-01T00:00:00') {
             dados['dataPagamento'].setValue(moment(this.itemEdicao.dataPagamento).format("yyyy-MM-DD"));
-          }else{dados['dataPagamento'].setValue(null);}
-          dados['valorParcela'].setValue(this.getFormataPreco(this.itemEdicao.valorParcela));
-          dados['valorMulta'].setValue(this.getFormataPreco(this.itemEdicao.valorMulta ));
-          dados['valorDesconto'].setValue(this.getFormataPreco(this.itemEdicao.valorDesconto));
+          } else { dados['dataPagamento'].setValue(null); }
+
+          dados['valorParcela'].setValue((this.itemEdicao.valorParcela));
+          dados['valorMulta'].setValue((this.itemEdicao.valorMulta));
+          dados['valorDesconto'].setValue((this.itemEdicao.valorDesconto));
+
           dados['qtdParcela'].setValue(this.itemEdicao.qtdParcela);
-          if (this.itemEdicao.pago == '0') {this.checkedPago = false;} else {this.checkedPago = true;}
-          if (this.itemEdicao.despesaFixa == '0') {this.checkedFixo = false;} else {this.checkedFixo = true;}
+          if (this.itemEdicao.pago == '0') { this.checkedPago = false; } else { this.checkedPago = true; }
+          if (this.itemEdicao.despesaFixa == '0') { this.checkedFixo = false; } else { this.checkedFixo = true; }
 
           const bancoId = this.itemEdicao.bancoId.toString();
           this.bancoSelect = this.listaDeBancos.find(item => item.id === bancoId);
@@ -287,8 +305,6 @@ console.log(item);
       },
       (error) => console.error(error)
     );
-
   }
-
   //#endregion
 }

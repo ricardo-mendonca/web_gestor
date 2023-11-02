@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 
+<!--DETALHE DA CONTA-->
 <div *ngIf="tipoTela == 2" class="container-base">
   <div class="content-page">
     <div class="header-info-2">
@@ -14,14 +15,7 @@
         <div class="row">
           <div class="group-row">
             <label>Descrição</label>
-            <input
-              type="text"
-              name="descricao"
-              id="descricao"
-              placeholder="Descrição"
-              formControlName="descricao"
-              required
-            />
+            <input type="text" name="descricao" id="descricao" placeholder="Descrição" formControlName="descricao"required/>
             <label
               class="error-input"
               *ngIf="despesaForm.get('descricao')?.errors?.['required'] && despesaForm.get('descricao')?.touched"
@@ -69,17 +63,8 @@
         <div class="row">
           <div class="group-row">
             <label>Valor</label>
-            <input
-              type="text"
-              name="valorParcela"
-              id="valorParcela"
-              formControlName="valorParcela"
-              placeholder="R$ "
-              mask="separator.2"
-              thousandSeparator="."
-              prefix="R$ "
-              required
-            />
+            <input type="text" name="valorParcela" id="valorParcela" formControlName="valorParcela" required 
+                matInput mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','"   type="text" [dropSpecialCharacters]="true" />
             <label
               class="error-input"
               *ngIf="despesaForm.get('valorParcela')?.errors?.['required'] && despesaForm.get('valorParcela')?.touched"
@@ -90,17 +75,8 @@
 
           <div class="group-row">
             <label>Valor da Multa</label>
-            <input
-              type="text"
-              name="valorMulta"
-              id="valorMulta"
-              formControlName="valorMulta"
-              placeholder="R$ "
-              mask="separator.2"
-              thousandSeparator="."
-              prefix="R$ "
-
-            />
+            <input type="number" name="valorMulta" id="valorMulta" formControlName="valorMulta" required 
+            matInput mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','"   type="text" [dropSpecialCharacters]="true" />
             <label
               class="error-input"
               *ngIf="despesaForm.get('valorMulta')?.errors?.['required'] && despesaForm.get('valorMulta')?.touched"
@@ -110,18 +86,9 @@
           </div>
 
           <div class="group-row">
-            <label>Valor do Desconto</label>
-            <input
-              type="text"
-              name="valorDesconto"
-              id="valorDesconto"
-              formControlName="valorDesconto"
-              placeholder="R$ "
-              mask="separator.2"
-              thousandSeparator="."
-              prefix="R$ "
-
-            />
+            <label>Valor do Desconto (R$)</label>
+            <input type="number" name="valorDesconto" id="valorDesconto" formControlName="valorDesconto" required 
+            matInput mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','"   type="text" [dropSpecialCharacters]="true" />
             <label
               class="error-input"
               *ngIf="despesaForm.get('valorDesconto')?.errors?.['required'] && despesaForm.get('valorDesconto')?.touched"
@@ -185,7 +152,8 @@
               name="qtdParcela"
               id="qtdParcela"
               formControlName="qtdParcela"
-              required
+              
+              
             />
             <label
               class="error-input"
@@ -205,6 +173,7 @@
               [checked]="checkedFixo"
               [disabled]="disabledFixo"
               (change)="handleChangeDespesaFixa($event)"
+              
             >
               Despesa Fixa?
             </mat-slide-toggle>
@@ -237,6 +206,8 @@
   </div>
 </div>
 
+
+<!--LISTA DE CONTAS-->
 <div *ngIf="tipoTela == 1" class="container-base">
   <div class="content-page">
     <div class="header-info-2">
@@ -250,7 +221,7 @@
           <tr>
             <!-- <td></td> -->
             <td>Id</td>
-            <td>Descrição/td>
+            <td>Descrição</td>
             <td>Valor Parcela</td>
             <td>Vencimento</td>
             <td>Pago</td>
@@ -272,7 +243,7 @@
           >
             <td>{{ item.id }}</td>
             <td>{{ item.descricao }}</td>
-            <td>{{ item.valorParcela }}</td>
+            <td>{{ formatter(item.valorParcela) }}</td>
             <td>{{ item.dataVencimento | date: 'dd/MM/yyyy' }}</td>
             <td>
               <ng-template
