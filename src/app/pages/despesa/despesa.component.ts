@@ -12,6 +12,7 @@ import { DespesaService } from 'src/app/services/despesa.service';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 
+
 @Component({
   selector: 'app-despesa',
   templateUrl: './despesa.component.html',
@@ -50,8 +51,6 @@ export class DespesaComponent {
     return result;
   }
 
-  
-
   mudarItemsPorPage() {
     this.page = 1;
     this.config.currentPage = this.page;
@@ -63,18 +62,6 @@ export class DespesaComponent {
     this.config.currentPage = this.page;
   }
 
-  ListaDespesaUsuario() {
-    this.tipoTela = 1;
-
-    this.despesaService.GetDespesaMes().subscribe(
-      (response: Array<DespesaModel>) => {
-
-        this.tableListDespesa = response;
-      },
-      (error) => console.error(error),
-      () => { }
-    );
-  }
   //#endregion
 
   constructor(
@@ -84,10 +71,9 @@ export class DespesaComponent {
     public bancoService: BancoService,
     public categoriaService: CategoriaService,
     private toastr: ToastrService
-  ) { 
-   
+  ) {
+
   }
- 
 
   listaDeBancos = new Array<SelectModel>();
   sistemaSelect = new SelectModel();
@@ -103,10 +89,9 @@ export class DespesaComponent {
   colorFixo = '#673ab7';
   checkedFixo = false;
   disabledFixo = false;
-  
- 
 
   despesaForm: FormGroup;
+  filterForm: FormGroup;
 
   ngOnInit() {
     this.menuService.menuSelecionado = 2;
@@ -129,19 +114,18 @@ export class DespesaComponent {
       qtdParcela: ['', [Validators.required]],
     });
 
+    this.filterForm = this.formBuilder.group({
+      matStartDate: [],
+      matEndDate: []
+    });
+
     this.ListaBancoUsuario();
     this.ListaCategoria();
   }
-  cadastro() {
-    this.tipoTela = 2;
-    this.disabledFixo = false;
-    this.despesaForm.reset();
-    this.categoriaSelect = null;
-    this.bancoSelect = null;
-    this.itemEdicao = null;
-    this.checkedPago = false;
-    this.checkedFixo = false;
-  }
+
+
+
+
 
   dadorForm() {
     return this.despesaForm.controls;
@@ -194,7 +178,6 @@ export class DespesaComponent {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   }
 
-
   enviar() {
     var dados = this.dadorForm();
     console.log(this.itemEdicao);
@@ -202,15 +185,15 @@ export class DespesaComponent {
 
       this.itemEdicao.valorParcela = (dados['valorParcela'].value);
 
-      if (dados['valorMulta'].value != null) {this.itemEdicao.valorMulta = (dados['valorMulta'].value);} else {this.itemEdicao.valorMulta = 0;}
-      if (dados['valorDesconto'].value != null) {this.itemEdicao.valorDesconto = (dados['valorDesconto'].value);} else {this.itemEdicao.valorDesconto = 0;}
+      if (dados['valorMulta'].value != null) { this.itemEdicao.valorMulta = (dados['valorMulta'].value); } else { this.itemEdicao.valorMulta = 0; }
+      if (dados['valorDesconto'].value != null) { this.itemEdicao.valorDesconto = (dados['valorDesconto'].value); } else { this.itemEdicao.valorDesconto = 0; }
       this.itemEdicao.descricao = dados['descricao'].value;
-      this.itemEdicao.dataVencimento =  dados['dataVencimento'].value;
-      if (dados['dataPagamento'].value != null) {this.itemEdicao.dataPagamento = dados['dataPagamento'].value;} else { this.itemEdicao.dataPagamento = dados['dataVencimento'].value; };
-      if (this.bancoSelect.id > '0') {this.itemEdicao.bancoId = parseInt(this.bancoSelect.id);}else {this.itemEdicao.bancoId = 0;}
-      this.itemEdicao.categoriaId= parseInt(this.categoriaSelect.id);
-      if (this.checkedPago == true) {this.itemEdicao.pago = '1';} else {this.itemEdicao.pago = '0';}
-      
+      this.itemEdicao.dataVencimento = dados['dataVencimento'].value;
+      if (dados['dataPagamento'].value != null) { this.itemEdicao.dataPagamento = dados['dataPagamento'].value; } else { this.itemEdicao.dataPagamento = dados['dataVencimento'].value; };
+      if (this.bancoSelect.id > '0') { this.itemEdicao.bancoId = parseInt(this.bancoSelect.id); } else { this.itemEdicao.bancoId = 0; }
+      this.itemEdicao.categoriaId = parseInt(this.categoriaSelect.id);
+      if (this.checkedPago == true) { this.itemEdicao.pago = '1'; } else { this.itemEdicao.pago = '0'; }
+
       this.despesaService.UpdateDespesa(this.itemEdicao).subscribe(
         (response: DespesaModel) => {
           this.ShowSucess();
@@ -230,19 +213,19 @@ export class DespesaComponent {
       item.qtdParcela = dados['qtdParcela'].value;
 
       item.ativo = '1';
-      if (this.checkedPago == true) {item.pago = '1';} else {item.pago = '0';}
-      if (this.checkedFixo == true) {item.despesaFixa = '1';} else { item.despesaFixa = '0';}
+      if (this.checkedPago == true) { item.pago = '1'; } else { item.pago = '0'; }
+      if (this.checkedFixo == true) { item.despesaFixa = '1'; } else { item.despesaFixa = '0'; }
 
       item.valorParcela = dados['valorParcela'].value;
       item.dataVencimento = dados['dataVencimento'].value;
 
-      if (dados['valorMulta'].value != null) {item.valorMulta = dados['valorMulta'].value;} else {item.valorMulta = 0;}
+      if (dados['valorMulta'].value != null) { item.valorMulta = dados['valorMulta'].value; } else { item.valorMulta = 0; }
 
-      if (dados['valorDesconto'].value != null) {item.valorDesconto = dados['valorDesconto'].value;} else {item.valorDesconto = 0;}
+      if (dados['valorDesconto'].value != null) { item.valorDesconto = dados['valorDesconto'].value; } else { item.valorDesconto = 0; }
 
-      if (this.bancoSelect.id > '0') {item.bancoId = parseInt(this.bancoSelect.id);}else {item.bancoId = 0;}
+      if (this.bancoSelect.id > '0') { item.bancoId = parseInt(this.bancoSelect.id); } else { item.bancoId = 0; }
 
-      if (dados['dataPagamento'].value != null) {item.dataPagamento = dados['dataPagamento'].value;} else { item.dataPagamento = dados['dataVencimento'].value; }
+      if (dados['dataPagamento'].value != null) { item.dataPagamento = dados['dataPagamento'].value; } else { item.dataPagamento = dados['dataVencimento'].value; }
 
       item.categoriaId = parseInt(this.categoriaSelect.id);
       item.usuarioId = 0;
@@ -262,9 +245,57 @@ export class DespesaComponent {
     }
   }
 
+  dadosfiltroForm() {
+    return this.filterForm.controls;
+  }
+
   voltar() {
     this.ListaDespesaUsuario();
   }
+
+
+  //#region FILTRO DE PESQUISA e CARREGAMENTO PAGINA
+
+  cadastro() {
+    this.tipoTela = 2;
+    this.disabledFixo = false;
+    this.despesaForm.reset();
+    this.categoriaSelect = null;
+    this.bancoSelect = null;
+    this.itemEdicao = null;
+    this.checkedPago = false;
+    this.checkedFixo = false;
+  }
+
+  ListaDespesaUsuario() {
+    this.tipoTela = 1;
+    var dataI = '';
+    var dataF = ''
+    this.GetDespesaMes(dataI, dataF);
+  }
+
+  GetDespesaMes(dataI, dataF) {
+
+    this.despesaService.GetDespesaMes(dataI, dataF).subscribe(
+      (response: Array<DespesaModel>) => {
+
+        this.tableListDespesa = response;
+      },
+      (error) => console.error(error),
+      () => { }
+    );
+  }
+
+  pesquisar() {
+    var dados = this.dadosfiltroForm();
+    
+    var dataI = (moment(dados['matStartDate'].value).format("yyyy-MM-DD"));
+    var dataF = (moment(dados['matEndDate'].value).format("yyyy-MM-DD"));
+
+    this.GetDespesaMes(dataI, dataF);
+  }
+
+  //#endregion
 
   //#region editar despesa
   itemEdicao: DespesaModel;

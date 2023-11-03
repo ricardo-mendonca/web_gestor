@@ -11,6 +11,9 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {  MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -28,10 +31,13 @@ import { MatIconModule } from '@angular/material/icon';
     
     NgxPaginationModule,
     MatIconModule,
+    MatFormFieldModule, 
+    MatDatepickerModule, 
+    MatNativeDateModule
  
   ],
   providers: [
-    provideNgxMask()
+    provideNgxMask(),    
   ]
 })
 export class DespesaModule {}

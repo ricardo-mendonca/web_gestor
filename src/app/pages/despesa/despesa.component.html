@@ -15,46 +15,30 @@
         <div class="row">
           <div class="group-row">
             <label>Descrição</label>
-            <input type="text" name="descricao" id="descricao" placeholder="Descrição" formControlName="descricao"required/>
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('descricao')?.errors?.['required'] && despesaForm.get('descricao')?.touched"
-            >
+            <input type="text" name="descricao" id="descricao" placeholder="Descrição" formControlName="descricao"
+              required />
+            <label class="error-input"
+              *ngIf="despesaForm.get('descricao')?.errors?.['required'] && despesaForm.get('descricao')?.touched">
               Campo Obrigatório!
             </label>
           </div>
 
           <div class="group-row">
             <label>Data de vencimento</label>
-            <input
-              type="date"
-              name="dataVencimento"
-              id="dataVencimento"
-              placeholder="dataVencimento"
-              formControlName="dataVencimento"
-              required
-            />
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('dataVencimento')?.errors?.['required'] && despesaForm.get('dataVencimento')?.touched"
-            >
+            <input type="date" name="dataVencimento" id="dataVencimento" placeholder="dataVencimento"
+              formControlName="dataVencimento" required />
+            <label class="error-input"
+              *ngIf="despesaForm.get('dataVencimento')?.errors?.['required'] && despesaForm.get('dataVencimento')?.touched">
               Campo Obrigatório!
             </label>
           </div>
 
           <div class="group-row">
             <label>Data de Pagamento</label>
-            <input
-              type="date"
-              name="dataPagamento"
-              id="dataPagamento"
-              placeholder="dataPagamento"
-              formControlName="dataPagamento"
-            />
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('dataPagamento')?.errors?.['required'] && despesaForm.get('dataPagamento')?.touched"
-            >
+            <input type="date" name="dataPagamento" id="dataPagamento" placeholder="dataPagamento"
+              formControlName="dataPagamento" />
+            <label class="error-input"
+              *ngIf="despesaForm.get('dataPagamento')?.errors?.['required'] && despesaForm.get('dataPagamento')?.touched">
               Campo Obrigatório!
             </label>
           </div>
@@ -63,36 +47,30 @@
         <div class="row">
           <div class="group-row">
             <label>Valor</label>
-            <input type="text" name="valorParcela" id="valorParcela" formControlName="valorParcela" required 
-                matInput mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','"   type="text" [dropSpecialCharacters]="true" />
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('valorParcela')?.errors?.['required'] && despesaForm.get('valorParcela')?.touched"
-            >
+            <input type="text" name="valorParcela" id="valorParcela" formControlName="valorParcela" required matInput
+              mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','" [dropSpecialCharacters]="true" />
+            <label class="error-input"
+              *ngIf="despesaForm.get('valorParcela')?.errors?.['required'] && despesaForm.get('valorParcela')?.touched">
               Campo Obrigatório!
             </label>
           </div>
 
           <div class="group-row">
             <label>Valor da Multa</label>
-            <input type="number" name="valorMulta" id="valorMulta" formControlName="valorMulta" required 
-            matInput mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','"   type="text" [dropSpecialCharacters]="true" />
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('valorMulta')?.errors?.['required'] && despesaForm.get('valorMulta')?.touched"
-            >
+            <input type="text" name="valorMulta" id="valorMulta" formControlName="valorMulta" required matInput
+              mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','" [dropSpecialCharacters]="true" />
+            <label class="error-input"
+              *ngIf="despesaForm.get('valorMulta')?.errors?.['required'] && despesaForm.get('valorMulta')?.touched">
               Campo Obrigatório!
             </label>
           </div>
 
           <div class="group-row">
             <label>Valor do Desconto (R$)</label>
-            <input type="number" name="valorDesconto" id="valorDesconto" formControlName="valorDesconto" required 
-            matInput mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','"   type="text" [dropSpecialCharacters]="true" />
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('valorDesconto')?.errors?.['required'] && despesaForm.get('valorDesconto')?.touched"
-            >
+            <input type="text" name="valorDesconto" id="valorDesconto" formControlName="valorDesconto" required matInput
+              mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','" [dropSpecialCharacters]="true" />
+            <label class="error-input"
+              *ngIf="despesaForm.get('valorDesconto')?.errors?.['required'] && despesaForm.get('valorDesconto')?.touched">
               Campo Obrigatório!
             </label>
           </div>
@@ -101,44 +79,24 @@
         <div class="row">
           <div class="group-row">
             <label>Banco</label>
-            <ng-select
-              class="select-padrao"
-              id="listaDeBancos"
-              [(ngModel)]="bancoSelect"
-              [items]="listaDeBancos"
-              bindLabel="name"
-              [multiple]="false"
-              [clearable]="false"
-              [searchable]="false"
-              formControlName="bancoSelect"
-            >
+            <ng-select class="select-padrao" id="listaDeBancos" [(ngModel)]="bancoSelect" [items]="listaDeBancos"
+              bindLabel="name" [multiple]="false" [clearable]="false" [searchable]="false"
+              formControlName="bancoSelect">
             </ng-select>
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('listaDeBancos')?.errors?.['required'] && despesaForm.get('listaDeBancos')?.touched"
-            >
+            <label class="error-input"
+              *ngIf="despesaForm.get('listaDeBancos')?.errors?.['required'] && despesaForm.get('listaDeBancos')?.touched">
               Campo Obrigatório!
             </label>
           </div>
 
           <div class="group-row">
             <label>Categoria</label>
-            <ng-select
-              class="select-padrao"
-              id="listaCategorias"
-              [(ngModel)]="categoriaSelect"
-              [items]="listaCategorias"
-              bindLabel="name"
-              [multiple]="false"
-              [clearable]="false"
-              [searchable]="false"
-              formControlName="categoriaSelect"
-            >
+            <ng-select class="select-padrao" id="listaCategorias" [(ngModel)]="categoriaSelect"
+              [items]="listaCategorias" bindLabel="name" [multiple]="false" [clearable]="false" [searchable]="false"
+              formControlName="categoriaSelect">
             </ng-select>
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('listaCategorias')?.errors?.['required'] && despesaForm.get('listaCategorias')?.touched"
-            >
+            <label class="error-input"
+              *ngIf="despesaForm.get('listaCategorias')?.errors?.['required'] && despesaForm.get('listaCategorias')?.touched">
               Campo Obrigatório!
             </label>
           </div>
@@ -147,18 +105,9 @@
         <div class="row">
           <div class="group-row">
             <label>Número de Parcelas</label>
-            <input
-              type="number"
-              name="qtdParcela"
-              id="qtdParcela"
-              formControlName="qtdParcela"
-              
-              
-            />
-            <label
-              class="error-input"
-              *ngIf="despesaForm.get('qtdParcela')?.errors?.['required'] && despesaForm.get('qtdParcela')?.touched"
-            >
+            <input type="number" name="qtdParcela" id="qtdParcela" formControlName="qtdParcela" />
+            <label class="error-input"
+              *ngIf="despesaForm.get('qtdParcela')?.errors?.['required'] && despesaForm.get('qtdParcela')?.touched">
               Campo Obrigatório!
             </label>
           </div>
@@ -167,27 +116,16 @@
         <div class="row">
           <div class="group-row">
             <label> </label>
-            <mat-slide-toggle
-              class="group-slide"
-              [color]="colorFixo"
-              [checked]="checkedFixo"
-              [disabled]="disabledFixo"
-              (change)="handleChangeDespesaFixa($event)"
-              
-            >
+            <mat-slide-toggle class="group-slide" [color]="colorFixo" [checked]="checkedFixo" [disabled]="disabledFixo"
+              (change)="handleChangeDespesaFixa($event)">
               Despesa Fixa?
             </mat-slide-toggle>
           </div>
 
           <div class="group-row">
             <label> </label>
-            <mat-slide-toggle
-              class="group-slide"
-              [color]="colorPago"
-              [checked]="checkedPago"
-              [disabled]="disabledPago"
-              (change)="handleChangePago($event)"
-            >
+            <mat-slide-toggle class="group-slide" [color]="colorPago" [checked]="checkedPago" [disabled]="disabledPago"
+              (change)="handleChangePago($event)">
               Pago?
             </mat-slide-toggle>
           </div>
@@ -216,7 +154,42 @@
         <div (click)="cadastro()" class="card-menu">Cadastro de Despesa</div>
       </div>
 
+      <!--Filtro de pesquisa por data-->
+      <form class="form-page" [formGroup]="filterForm">
+        <div class="row">
+
+          <div class="group-row">
+
+            <mat-form-field>
+              <mat-label>Informe periodo de pesquisa</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate formControlName="matStartDate" placeholder="Data início">
+                <input matEndDate formControlName="matEndDate" placeholder="Data Final">
+              </mat-date-range-input>
+              <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+
+
+
+          </div>
+
+
+          <div class="group-row">
+            <input type="submit" value="Pesquisar" (click)="pesquisar()" class="btn-primary" />
+
+          </div>
+
+        </div>
+      </form>
+
       <table cellspacing="0" cellpadding="0">
+
+
+
+
+
         <thead>
           <tr>
             <!-- <td></td> -->
@@ -229,27 +202,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            class="select-item"
-            *ngFor="
+          <tr class="select-item" *ngFor="
               let item of tableListDespesa | paginate : config;
               let i = index
-            "
-            class="linha-table"
-            [ngClass]="{
+            " class="linha-table" [ngClass]="{
               'linha-cinza': i % 2 == 0,
               'linha-branca': i % 2 !== 0
-            }"
-          >
+            }">
             <td>{{ item.id }}</td>
             <td>{{ item.descricao }}</td>
             <td>{{ formatter(item.valorParcela) }}</td>
             <td>{{ item.dataVencimento | date: 'dd/MM/yyyy' }}</td>
             <td>
-              <ng-template
-                [ngIf]="item.pago === '1'"
-                [ngIfElse]="userLoggedOut"
-              >
+              <ng-template [ngIf]="item.pago === '1'" [ngIfElse]="userLoggedOut">
                 <div>Sim</div>
               </ng-template>
               <ng-template #userLoggedOut>
@@ -265,13 +230,8 @@
 
       <div class="tabela-footer" *ngIf="paginacao && tableListDespesa">
         <label class="mostrar">Mostrar</label>
-        <ng-select
-          (change)="mudarItemsPorPage()"
-          [(ngModel)]="itemsPorPagina"
-          [clearable]="false"
-          [searchable]="false"
-          class="mostrar-drop"
-        >
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false" [searchable]="false"
+          class="mostrar-drop">
           <ng-option [value]="10"> 10</ng-option>
           <ng-option [value]="25"> 25</ng-option>
           <ng-option [value]="50"> 50</ng-option>
@@ -279,13 +239,8 @@
         </ng-select>
 
         <div class="container-pagination">
-          <pagination-controls
-            id="{{ this.id }}"
-            previousLabel="Anterior"
-            nextLabel="Próximo"
-            [responsive]="true"
-            (pageChange)="mudarPage($event)"
-          >
+          <pagination-controls id="{{ this.id }}" previousLabel="Anterior" nextLabel="Próximo" [responsive]="true"
+            (pageChange)="mudarPage($event)">
           </pagination-controls>
         </div>
       </div>

@@ -18,6 +18,7 @@ import { CadastroComponent } from './pages/auth/cadastro/cadastro.component';
 import { RecuperarsenhaComponent } from './pages/auth/recuperarsenha/recuperarsenha.component';
 
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask'
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 const RxJS = [LoaderInterceptor, HTTPStatus];
@@ -53,7 +54,9 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     AuthGuard,
     RxJS,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    provideNgxMask()
+    provideNgxMask(),
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+
   ],
   bootstrap: [AppComponent],
   exports:
