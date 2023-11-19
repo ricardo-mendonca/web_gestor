@@ -155,7 +155,7 @@
       </div>
 
       <!--Filtro de pesquisa por data-->
-      <form class="form-page" [formGroup]="filterForm">
+      <form class="form-page" [formGroup]="filterForm" (submit)="pesquisar()">
         <div class="row">
 
           <div class="group-row">

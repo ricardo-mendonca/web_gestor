@@ -267,18 +267,10 @@ export class DespesaComponent {
     this.checkedFixo = false;
   }
 
-  ListaDespesaUsuario() {
-    this.tipoTela = 1;
-    var dataI = '';
-    var dataF = ''
-    this.GetDespesaMes(dataI, dataF);
-  }
 
   GetDespesaMes(dataI, dataF) {
-
     this.despesaService.GetDespesaMes(dataI, dataF).subscribe(
       (response: Array<DespesaModel>) => {
-
         this.tableListDespesa = response;
       },
       (error) => console.error(error),
@@ -288,13 +280,28 @@ export class DespesaComponent {
 
   pesquisar() {
     var dados = this.dadosfiltroForm();
-    
     var dataI = (moment(dados['matStartDate'].value).format("yyyy-MM-DD"));
     var dataF = (moment(dados['matEndDate'].value).format("yyyy-MM-DD"));
-
+  
+    if (dataI == '') {
+      var dataI = '';
+      var dataF = ''
+    }
+  
     this.GetDespesaMes(dataI, dataF);
   }
 
+
+  ListaDespesaUsuario() {
+    this.tipoTela = 1;
+    
+    
+    var dataI = '';
+    var dataF = '';
+    
+    this.GetDespesaMes(dataI, dataF);
+
+  }
   //#endregion
 
   //#region editar despesa
